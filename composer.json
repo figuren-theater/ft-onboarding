@@ -1,0 +1,67 @@
+{
+	"name": "figuren-theater/ft-onboarding",
+	"description": "Onboarding of new users, site- and user creation for a WordPress Multisite network like figuren.theater.",
+    "homepage": "https://websites.fuer.figuren.theater",
+    "type": "wordpress-muplugin",
+    "keywords": ["wordpress", "users", "onboarding", "registration"],
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "figuren.theater",
+            "email": "info@figuren.theater"
+        },
+        {
+            "name": "Carsten Bach",
+            "email": "mail@carsten-bach.de",
+            "homepage": "https://carsten-bach.de",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "info@figuren.theater",
+        "issues": "https://github.com/figuren-theater/ft-onboarding/issues",
+        "source": "https://github.com/figuren-theater/ft-onboarding"
+    },
+	"autoload": {
+		"files": [
+			"inc/impressum/namespace.php",
+            "inc/sites/namespace.php",
+            "inc/users/namespace.php",
+            "inc/wp-approve-user/namespace.php",
+            "inc/wp-user-profiles/namespace.php",
+			"inc/namespace.php"
+		],
+        "classmap": [
+            "inc/"
+        ]
+	},
+	"repositories": [
+		{
+            "type": "git",
+            "url": "https://github.com/figuren-theater/ft-options"
+        },
+		{
+			"type": "composer",
+			"url" : "https://wpackagist.org"
+		}
+	],
+	"require": {
+        "php": ">=7.1",
+        "figuren-theater/ft-options": "^1",
+        "stuttter/wp-user-profiles": "^2.6.2",
+        "wpackagist-plugin/wp-approve-user": "^10.0"
+	},
+    "extra": {
+        "altis": {
+            "install-overrides": [
+                "stuttter/wp-user-profiles",
+                "wpackagist-plugin/wp-approve-user"
+            ]
+        }
+    },
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
+	}
+}
