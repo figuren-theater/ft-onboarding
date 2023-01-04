@@ -28,6 +28,7 @@
             "inc/sites/namespace.php",
             "inc/users/namespace.php",
             "inc/wp-approve-user/namespace.php",
+            "inc/wp-multi-network/namespace.php",
             "inc/wp-user-profiles/namespace.php",
 			"inc/namespace.php"
 		],
@@ -49,11 +50,13 @@
         "php": ">=7.1",
         "figuren-theater/ft-options": "^1",
         "stuttter/wp-user-profiles": "^2.6.2",
+        "stuttter/wp-multi-network":"^2.5.2",
         "wpackagist-plugin/wp-approve-user": "^10.0"
 	},
     "extra": {
         "altis": {
             "install-overrides": [
+                "stuttter/wp-multi-network",
                 "stuttter/wp-user-profiles",
                 "wpackagist-plugin/wp-approve-user"
             ]

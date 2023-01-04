@@ -19,7 +19,7 @@ const PLUGINPATH = FT_VENDOR_DIR . '/stuttter/' . BASENAME;
  */
 function bootstrap() {
 
-	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 4 );
+	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugin', 9 );
 }
 
 function load_plugin() {

@@ -10,6 +10,7 @@ This package contains the following plugins.
 Thoose are completely managed by code and lack of their typical UI.
 
 * [WP Approve User](https://wordpress.org/plugins/wp-approve-user/#developers)
+* [WP Multi Network](https://wordpress.org/plugins/wp-multi-network/#developers)
 * [WP User Profiles](https://wordpress.org/plugins/wp-user-profiles/#developers)
 
 ---
