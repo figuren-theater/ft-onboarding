@@ -18,7 +18,7 @@ use function wp_update_user;
  */
 function bootstrap() {
 
-	add_action( 'user_register', __NAMESPACE__ . '\\load' );
+	add_action( 'user_register', __NAMESPACE__ . '\\load', 20 );
 }
 
 

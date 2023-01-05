@@ -11,7 +11,7 @@ use FT_VENDOR_DIR;
 
 use function add_action;
 
-const BASENAME   = 'wp-multi-network/wp-multi-network.php';
+const BASENAME   = 'wp-multi-network/wpmn-loader.php';
 const PLUGINPATH = FT_VENDOR_DIR . '/stuttter/' . BASENAME;
 
 /**

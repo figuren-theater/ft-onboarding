@@ -1,0 +1,335 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "17cd4ab4d1dc47552a0df8b1e00d76e7",
+    "packages": [
+        {
+            "name": "composer/installers",
+            "version": "v1.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/installers.git",
+                "reference": "d20a64ed3c94748397ff5973488761b22f6d3f19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/installers/zipball/d20a64ed3c94748397ff5973488761b22f6d3f19",
+                "reference": "d20a64ed3c94748397ff5973488761b22f6d3f19",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0 || ^2.0"
+            },
+            "replace": {
+                "roundcube/plugin-installer": "*",
+                "shama/baton": "*"
+            },
+            "require-dev": {
+                "composer/composer": "1.6.* || ^2.0",
+                "composer/semver": "^1 || ^3",
+                "phpstan/phpstan": "^0.12.55",
+                "phpstan/phpstan-phpunit": "^0.12.16",
+                "symfony/phpunit-bridge": "^4.2 || ^5",
+                "symfony/process": "^2.3"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Composer\\Installers\\Plugin",
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Installers\\": "src/Composer/Installers"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kyle Robinson Young",
+                    "email": "kyle@dontkry.com",
+                    "homepage": "https://github.com/shama"
+                }
+            ],
+            "description": "A multi-framework Composer library installer",
+            "homepage": "https://composer.github.io/installers/",
+            "keywords": [
+                "Craft",
+                "Dolibarr",
+                "Eliasis",
+                "Hurad",
+                "ImageCMS",
+                "Kanboard",
+                "Lan Management System",
+                "MODX Evo",
+                "MantisBT",
+                "Mautic",
+                "Maya",
+                "OXID",
+                "Plentymarkets",
+                "Porto",
+                "RadPHP",
+                "SMF",
+                "Starbug",
+                "Thelia",
+                "Whmcs",
+                "WolfCMS",
+                "agl",
+                "aimeos",
+                "annotatecms",
+                "attogram",
+                "bitrix",
+                "cakephp",
+                "chef",
+                "cockpit",
+                "codeigniter",
+                "concrete5",
+                "croogo",
+                "dokuwiki",
+                "drupal",
+                "eZ Platform",
+                "elgg",
+                "expressionengine",
+                "fuelphp",
+                "grav",
+                "installer",
+                "itop",
+                "joomla",
+                "known",
+                "kohana",
+                "laravel",
+                "lavalite",
+                "lithium",
+                "magento",
+                "majima",
+                "mako",
+                "mediawiki",
+                "miaoxing",
+                "modulework",
+                "modx",
+                "moodle",
+                "osclass",
+                "pantheon",
+                "phpbb",
+                "piwik",
+                "ppi",
+                "processwire",
+                "puppet",
+                "pxcms",
+                "reindex",
+                "roundcube",
+                "shopware",
+                "silverstripe",
+                "sydes",
+                "sylius",
+                "symfony",
+                "tastyigniter",
+                "typo3",
+                "wordpress",
+                "yawik",
+                "zend",
+                "zikula"
+            ],
+            "support": {
+                "issues": "https://github.com/composer/installers/issues",
+                "source": "https://github.com/composer/installers/tree/v1.12.0"
+            },
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-09-13T08:19:44+00:00"
+        },
+        {
+            "name": "figuren-theater/ft-options",
+            "version": "1.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/figuren-theater/ft-options",
+                "reference": "8f6bbd22d0dcfc3244063a73ce77f11979ae30b4"
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "wordpress-muplugin",
+            "autoload": {
+                "psr-4": {
+                    "Figuren_Theater\\Options\\": "inc/"
+                }
+            },
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "figuren.theater",
+                    "email": "info@figuren.theater"
+                },
+                {
+                    "name": "Carsten Bach",
+                    "email": "mail@carsten-bach.de",
+                    "homepage": "https://carsten-bach.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Options Management for a WordPress Multisite like figuren.theater",
+            "homepage": "https://websites.fuer.figuren.theater",
+            "keywords": [
+                "multisite",
+                "options",
+                "settings",
+                "wordpress"
+            ],
+            "support": {
+                "email": "info@figuren.theater",
+                "issues": "https://github.com/figuren-theater/ft-options/issues",
+                "source": "https://github.com/figuren-theater/ft-options"
+            },
+            "time": "2022-12-31T01:06:34+00:00"
+        },
+        {
+            "name": "stuttter/wp-multi-network",
+            "version": "2.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stuttter/wp-multi-network.git",
+                "reference": "f48f3ace142632cac6cb0caed8ac6f680381d6ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stuttter/wp-multi-network/zipball/f48f3ace142632cac6cb0caed8ac6f680381d6ca",
+                "reference": "f48f3ace142632cac6cb0caed8ac6f680381d6ca",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^1.0",
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "phpunit/phpunit": ">4.8.20 <6.0",
+                "squizlabs/php_codesniffer": "3.*",
+                "wp-coding-standards/wpcs": "^2.2"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "John James Jacoby",
+                    "email": "johnjamesjacoby@me.com"
+                }
+            ],
+            "description": "Provides a Network Management Interface for global administrators in WordPress Multisite installations.",
+            "homepage": "https://wordpress.org/plugins/wp-multi-network/",
+            "support": {
+                "forum": "https://github.com/stuttter/wp-multi-network/discussions",
+                "issues": "https://github.com/stuttter/wp-multi-network/issues",
+                "source": "https://github.com/stuttter/wp-multi-network"
+            },
+            "funding": [
+                {
+                    "url": "https://buy.stripe.com/7sI3cd2tK1Cy2lydQR",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-09-21T09:56:05+00:00"
+        },
+        {
+            "name": "stuttter/wp-user-profiles",
+            "version": "2.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stuttter/wp-user-profiles.git",
+                "reference": "d7d82e3ab95b689a13bd58aaf369df343cfff2a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stuttter/wp-user-profiles/zipball/d7d82e3ab95b689a13bd58aaf369df343cfff2a5",
+                "reference": "d7d82e3ab95b689a13bd58aaf369df343cfff2a5",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^1.0",
+                "php": ">=5.2"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "John James Jacoby",
+                    "email": "johnjamesjacoby@me.com"
+                }
+            ],
+            "description": "A sophisticated way to edit users in WordPress",
+            "homepage": "https://github.com/stuttter/wp-user-profiles",
+            "support": {
+                "issues": "https://github.com/stuttter/wp-user-profiles/issues",
+                "source": "https://github.com/stuttter/wp-user-profiles/tree/2.6.2"
+            },
+            "funding": [
+                {
+                    "url": "https://ko-fi.com/jjj",
+                    "type": "ko_fi"
+                },
+                {
+                    "url": "https://www.patreon.com/jjj",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2021-08-18T20:03:49+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/wp-approve-user",
+            "version": "10",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-approve-user/",
+                "reference": "tags/10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-approve-user.10.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-approve-user/"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.1"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}
