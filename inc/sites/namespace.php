@@ -7,7 +7,7 @@
 
 namespace Figuren_Theater\Onboarding\Sites;
 
-use Figuren_Theater\Onboarding\DIRECTORY;
+use Figuren_Theater\Onboarding;
 
 use Figuren_Theater\Coresites\Post_Types;
 
@@ -75,9 +75,9 @@ function __ft_level_select() : string {
 	// not avail. via composer, 
 	// so we have to require it usually
 	// if (file_exists( WPMU_PLUGIN_DIR . '/_ft_vendor/wp_dropdown_posts/wp_dropdown_posts.php' ) )
-	if (file_exists( DIRECTORY . '/inc/sites/wp_dropdown_posts/wp_dropdown_posts.php' ) )
+	if (file_exists( Onboarding\DIRECTORY . '/inc/sites/wp_dropdown_posts/wp_dropdown_posts.php' ) )
 		// require_once WPMU_PLUGIN_DIR . '/_ft_vendor/wp_dropdown_posts/wp_dropdown_posts.php';
-		require_once DIRECTORY . '/inc/sites/wp_dropdown_posts/wp_dropdown_posts.php';
+		require_once Onboarding\DIRECTORY . '/inc/sites/wp_dropdown_posts/wp_dropdown_posts.php';
 	
 	if ( ! function_exists( 'wp_dropdown_posts' ) )
 		return '';
