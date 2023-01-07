@@ -58,6 +58,7 @@
         "figuren-theater/ft-core-block-domaincheck": "^0.1",
         "stuttter/wp-user-profiles": "^2.6.2",
         "stuttter/wp-multi-network":"^2.5.2",
+        "wpackagist-plugin/impressum":"^2.0.0",
         "wpackagist-plugin/preferred-languages":"^1.8.0",
         "wpackagist-plugin/wp-approve-user": "^10.0"
 	},
@@ -67,6 +68,7 @@
                 "figuren-theater/ft-core-block-domaincheck",
                 "stuttter/wp-multi-network",
                 "stuttter/wp-user-profiles",
+                "wpackagist-plugin/impressum",
                 "wpackagist-plugin/preferred-languages",
                 "wpackagist-plugin/wp-approve-user"
             ]

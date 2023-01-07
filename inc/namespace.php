@@ -41,8 +41,8 @@ function register() {
 function bootstrap() {
 
 	// Plugins
-	// Impressum\bootstrap();
 	FT_Core_Block_Domaincheck\bootstrap();
+	Impressum\bootstrap();
 	Preferred_Languages\bootstrap();
 	WP_Approve_User\bootstrap();
 	WP_Multi_Network\bootstrap();
