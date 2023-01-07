@@ -24,7 +24,7 @@ const PLUGINPATH = FT_VENDOR_DIR . '/figuren-theater/' . BASENAME;
  */
 function bootstrap() {
 
-	add_action( 'init', __NAMESPACE__ . '\\load_plugin', 9 );
+	add_action( 'init', __NAMESPACE__ . '\\load_plugin', 8 );
 }
 
 function load_plugin() {

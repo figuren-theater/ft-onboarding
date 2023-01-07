@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d397c8e34b2df249540656a161c929a",
+    "content-hash": "4893c7f524d8fea17ea00e6a28fb031e",
     "packages": [
         {
             "name": "composer/installers",
@@ -494,6 +494,24 @@
                 }
             ],
             "time": "2021-08-18T20:03:49+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/preferred-languages",
+            "version": "1.8.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/preferred-languages/",
+                "reference": "tags/1.8.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/preferred-languages.1.8.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/preferred-languages/"
         },
         {
             "name": "wpackagist-plugin/wp-approve-user",

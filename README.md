@@ -11,6 +11,7 @@ Thoose are completely managed by code and lack of their typical UI.
 
 * [figuren-theater/ft-core-block-domaincheck](https://github.com/figuren-theater/ft-core-block-domaincheck)
     Block showing a simple form to check the availability of a specific subdomain below figuren.theater and puppen.theater.
+* [Preferred Languages](https://wordpress.org/plugins/preferred-languages/#developers)
 * [WP Approve User](https://wordpress.org/plugins/wp-approve-user/#developers)
 * [WP Multi Network](https://wordpress.org/plugins/wp-multi-network/#developers)
 * [WP User Profiles](https://wordpress.org/plugins/wp-user-profiles/#developers)
