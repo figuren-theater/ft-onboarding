@@ -45,16 +45,17 @@ function load_plugin() {
 function filter_options() {
 	
 	$_options = [
-
+		'dismissed-impressum_welcome_notice' => true,
+		// 'impressum_imprint_options' => [] // DO NOT HANDLE, as it's the user-data
 	];
 
 	// gets added to the 'OptionsCollection' 
 	// from within itself on creation
-	new Options\Option(
-		'',
-		$_options,
-		BASENAME
-	);
+		new Options\Factory( 
+			$_options, 
+			'Figuren_Theater\Options\Option', 
+			BASENAME, 
+		);
 }
 
 
