@@ -16,7 +16,7 @@ use function add_action;
 
 const BASENAME   = 'impressum/impressum.php';
 const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
-
+const OPTION     = 'impressum_imprint_options';
 
 /**
  * Bootstrap module, when enabled.
@@ -33,7 +33,7 @@ function load_plugin() {
 
 	require_once PLUGINPATH;
 
-	add_action( 'update_option_impressum_imprint_options', __NAMESPACE__ . '\\update_ft_geo_option_from_imprint', 10, 3 );
+	add_action( 'update_option_' . OPTION, __NAMESPACE__ . '\\update_ft_geo_option_from_imprint', 10, 3 );
 
 	add_action( 'impressum_country_after_sort', __NAMESPACE__ . '\\impressum_country_after_sort' );
 	add_action( 'impressum_legal_entity_after_sort', __NAMESPACE__ . '\\impressum_legal_entity_after_sort' );
@@ -46,7 +46,7 @@ function filter_options() {
 	
 	$_options = [
 		'dismissed-impressum_welcome_notice' => true,
-		// 'impressum_imprint_options' => [] // DO NOT HANDLE, as it's the user-data
+		// OPTION => [] // DO NOT HANDLE, as it's the user-data
 	];
 
 	// gets added to the 'OptionsCollection' 
