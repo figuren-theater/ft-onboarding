@@ -49,6 +49,10 @@
             "type": "git",
             "url": "https://github.com/figuren-theater/ft-core-block-domaincheck"
         },
+        {
+            "type": "git",
+            "url": "https://github.com/figuren-theater/install.php"
+        },
 		{
 			"type": "composer",
 			"url" : "https://wpackagist.org"
@@ -58,6 +62,7 @@
         "php": ">=7.1",
         "figuren-theater/ft-options": "^1",
         "figuren-theater/ft-core-block-domaincheck": "^0.1",
+        "figuren-theater/install.php": "^1.0",
         "stuttter/wp-user-profiles": "^2.6",
         "stuttter/wp-multi-network":"^2.5",
         "wpackagist-plugin/impressum":"^2.0",
@@ -68,6 +73,7 @@
         "altis": {
             "install-overrides": [
                 "figuren-theater/ft-core-block-domaincheck",
+                "figuren-theater/install.php",
                 "stuttter/wp-multi-network",
                 "stuttter/wp-user-profiles",
                 "wpackagist-plugin/impressum",
