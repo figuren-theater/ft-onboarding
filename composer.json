@@ -27,6 +27,8 @@
 			"inc/ft-core-block-domaincheck/namespace.php",
             "inc/preferred-languages/namespace.php",
             "inc/impressum/namespace.php",
+            "inc/sites/installation.php",
+            "inc/sites/registration.php",
             "inc/sites/namespace.php",
             "inc/users/namespace.php",
             "inc/wp-approve-user/namespace.php",
