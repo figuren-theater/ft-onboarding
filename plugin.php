@@ -4,14 +4,14 @@
  *
  * @package           figuren-theater/onboarding
  * @author            figuren.theater
- * @copyright         2022 figuren.theater
+ * @copyright         2023 figuren.theater
  * @license           GPL-3.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       figuren.theater | Onboarding
  * Plugin URI:      https://github.com/figuren-theater/ft-onboarding
  * Description:     Onboarding of new users, site- and user creation for a WordPress Multisite network like figuren.theater.
- * Version:           1.0.12
+ * Version:           1.1.0
  * Requires at least: 6.0
  * Requires PHP:      7.2
  * Author:            figuren.theater
