@@ -13,6 +13,7 @@ use Figuren_Theater\inc\Geo;
 use Figuren_Theater\Options;
 
 use function add_action;
+use function is_admin;
 
 const BASENAME   = 'impressum/impressum.php';
 const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
@@ -35,13 +36,16 @@ function load_plugin() {
 
 	add_action( 'update_option_' . OPTION, __NAMESPACE__ . '\\update_ft_geo_option_from_imprint', 10, 3 );
 
+	if ( ! is_admin() )
+		return;
+
 	add_action( 'impressum_country_after_sort', __NAMESPACE__ . '\\impressum_country_after_sort' );
 	add_action( 'impressum_legal_entity_after_sort', __NAMESPACE__ . '\\impressum_legal_entity_after_sort' );
 
 	add_action( 'admin_head-settings_page_impressum', __NAMESPACE__ . '\\cleanup_admin_ui' );
 }
 
-
+/*
 function filter_options() {
 	
 	$_options = [
@@ -56,7 +60,7 @@ function filter_options() {
 			'Figuren_Theater\Options\Option', 
 			BASENAME, 
 		);
-}
+}*/
 
 
 function update_ft_geo_option_from_imprint( mixed $old_value, mixed $new_value, string $option_name ) : void {
