@@ -13,6 +13,7 @@ use Figuren_Theater\inc\Geo;
 use Figuren_Theater\Options;
 
 use function add_action;
+use function add_filter;
 use function is_admin;
 
 const BASENAME   = 'impressum/impressum.php';
@@ -24,7 +25,7 @@ const OPTION     = 'impressum_imprint_options';
  */
 function bootstrap() {
 
-	// add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
+	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
 	
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 4 );
 }
@@ -34,7 +35,7 @@ function load_plugin() {
 
 	require_once PLUGINPATH;
 
-	add_action( 'update_option_' . OPTION, __NAMESPACE__ . '\\update_ft_geo_option_from_imprint', 10, 3 );
+	add_filter( 'pre_update_option_' . OPTION, __NAMESPACE__ . '\\pre_update_ft_geo_option_from_imprint', 10, 3 );
 
 	if ( ! is_admin() )
 		return;
@@ -45,7 +46,7 @@ function load_plugin() {
 	add_action( 'admin_head-settings_page_impressum', __NAMESPACE__ . '\\cleanup_admin_ui' );
 }
 
-/*
+
 function filter_options() {
 	
 	$_options = [
@@ -60,23 +61,56 @@ function filter_options() {
 			'Figuren_Theater\Options\Option', 
 			BASENAME, 
 		);
-}*/
+}
 
 
-function update_ft_geo_option_from_imprint( mixed $old_value, mixed $new_value, string $option_name ) : void {
+// set Impressum-location, ft_geo-catgeories and WP_LANG
+// in one go, by just .... updating an option
+// 
+function pre_update_ft_geo_option_from_imprint( mixed $new_value, mixed $old_value, string $option_name ) : mixed {
 
 	// do nothing,
-	// if nothing has changed
-	if ($old_value['country'] === $new_value['country']
+	// if nothing (on the address) has changed
+	// $new_value['country'] could be unset by Figuren_Theater\Onboarding\Sites\Installation\set_imprint_page()
+	// so check it
+	if ( isset($new_value['country']) && 
+		 // can be bool, if non existent yet
+		 isset($old_value['country']) && 
+		 $old_value['country'] === $new_value['country']
 		&&
 		$old_value['address'] === $new_value['address']
 	)
-		return;
+		return $new_value;
 
 	// otherwise
 	// start the geo-engines :)
 	$ft_geo_options_bridge = new Geo\ft_geo_options_bridge;
 	$ft_geo = $ft_geo_options_bridge->update_option_ft_geo( $old_value, $new_value, $option_name );
+
+	// set adress to verified version
+	if ( isset( $ft_geo['address'] ) && ! empty( $ft_geo['address'] ) ) {
+		$new_value['address'] = $ft_geo['address'];
+	} else {
+		// or reset
+		$new_value['address'] = $old_value['address'];
+	} 
+	// set country to verified version
+	if ( isset( $ft_geo['geojson']['properties']['address']['country'] )) {
+		// crazy country codes by 'Impressum' plugin
+		$_country_helper = [
+			'de' => 'deu',
+			'at' => 'aut',
+			'ch' => 'che',
+		];
+		$new_value['country'] = $_country_helper[ $ft_geo['geojson']['properties']['address']['country_code'] ];
+	} else {
+		// or reset
+		$new_value['country'] = $old_value['country'];
+	}
+
+	// go on and save
+	return $new_value;
+
 }
 
 
