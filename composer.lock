@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90a286ebc6b1a3a12eb08f960f5e3311",
+    "content-hash": "6d87d3dcf8ef53464a7a0f927ed3776b",
     "packages": [
         {
             "name": "composer/installers",
@@ -159,11 +159,11 @@
         },
         {
             "name": "figuren-theater/ft-core-block-domaincheck",
-            "version": "0.1.1",
+            "version": "0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/figuren-theater/ft-core-block-domaincheck",
-                "reference": "b285e0b3e1745384d511e45f00cddbc19eea6cd6"
+                "reference": "b7d48be2c02c8289b4ef36bcb962de12ec10a18f"
             },
             "require": {
                 "johnpbloch/wordpress": "^6.1",
@@ -200,7 +200,7 @@
                 "issues": "https://github.com/figuren-theater/ft-core-block-domaincheck/issues",
                 "source": "https://github.com/figuren-theater/ft-core-block-domaincheck"
             },
-            "time": "2023-01-06T23:43:34+00:00"
+            "time": "2023-02-21T01:30:12+00:00"
         },
         {
             "name": "figuren-theater/ft-options",
@@ -249,6 +249,55 @@
                 "source": "https://github.com/figuren-theater/ft-options"
             },
             "time": "2023-01-17T20:48:17+00:00"
+        },
+        {
+            "name": "figuren-theater/install.php",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/figuren-theater/install.php",
+                "reference": "f642a9fee4f03acb2fc89f74f0f1d29a7a40384f"
+            },
+            "require": {
+                "koodimonni/composer-dropin-installer": ">=1.0.1",
+                "php": ">=7.0"
+            },
+            "type": "wordpress-dropin",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "figuren.theater",
+                    "email": "info@figuren.theater"
+                },
+                {
+                    "name": "Carsten Bach",
+                    "email": "mail@carsten-bach.de",
+                    "homepage": "https://carsten-bach.de",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Onni Hakala",
+                    "email": "onni.hakala@geniem.com",
+                    "homepage": "https://github.com/onnimonni",
+                    "role": "Developer"
+                }
+            ],
+            "description": "WordPress installer-dropin for the figuren.theater Multisite network.",
+            "homepage": "https://websites.fuer.figuren.theater",
+            "keywords": [
+                "dropin",
+                "installer",
+                "wordpress",
+                "wp"
+            ],
+            "support": {
+                "email": "info@figuren.theater",
+                "issues": "https://github.com/figuren-theater/install.php/issues",
+                "source": "https://github.com/figuren-theater/install.php"
+            },
+            "time": "2023-02-20T21:42:38+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
@@ -397,6 +446,54 @@
                 "source": "https://github.com/johnpbloch/wordpress-core-installer/tree/master"
             },
             "time": "2020-04-16T21:44:57+00:00"
+        },
+        {
+            "name": "koodimonni/composer-dropin-installer",
+            "version": "1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Koodimonni/Composer-Dropin-Installer.git",
+                "reference": "9596ef8f50cbba2cdc707ca3b1f5e4a0e9fa7e7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Koodimonni/Composer-Dropin-Installer/zipball/9596ef8f50cbba2cdc707ca3b1f5e4a0e9fa7e7e",
+                "reference": "9596ef8f50cbba2cdc707ca3b1f5e4a0e9fa7e7e",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0 | ^2.0",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Koodimonni\\Composer\\Dropin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Koodimonni\\Composer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Onni Hakala",
+                    "email": "onni@keksi.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Install packages or a few files from packages into custom paths without overwriting existing stuff.",
+            "support": {
+                "issues": "https://github.com/Koodimonni/Composer-Dropin-Installer/issues",
+                "source": "https://github.com/Koodimonni/Composer-Dropin-Installer/tree/1.4"
+            },
+            "time": "2022-02-02T11:42:57+00:00"
         },
         {
             "name": "markjaquith/wp-tlc-transients",
