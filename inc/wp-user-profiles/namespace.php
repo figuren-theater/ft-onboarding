@@ -13,6 +13,7 @@ use Figuren_Theater;
 use function Figuren_Theater\get_config;
 
 use function add_action;
+use function is_admin;
 use function is_network_admin;
 use function remove_meta_box;
 
@@ -35,6 +36,14 @@ function load_plugin() {
 
 	require_once PLUGINPATH;
 	
+	// we need the whole plugin to be loaded everywhere
+	// because of the modified profile page url
+	// that could be needed by the admin-bar
+	// 
+	// but we dont need all of this in the frontend, so ...
+	if ( ! is_admin() )
+		return; // early
+
 	// Remove some metaboxes
 	add_action( 'add_meta_boxes', __NAMESPACE__ . '\\remove_meta_boxes', 100, 1 );
 }

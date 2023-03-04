@@ -7,9 +7,11 @@
 
 namespace Figuren_Theater\Onboarding\Preferred_Languages;
 
+use Figuren_Theater\Onboarding\Impressum;
+
 use FT_VENDOR_DIR;
 
-use Figuren_Theater\FT;
+use Figuren_Theater; // FT
 
 use function add_action;
 use function update_option;
@@ -22,7 +24,7 @@ const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
  */
 function bootstrap() {
 
-	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 9 );
+	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 4 );
 }
 
 function load_plugin() {
@@ -30,26 +32,11 @@ function load_plugin() {
 	require_once PLUGINPATH;
 
 	// Fires after the value of 'impressum_imprint_options' has been successfully updated.
-	add_action( 'update_option_impressum_imprint_options', __NAMESPACE__ . '\\set_pref_lang_from_impressum', 100, 2 );
-
-
-	// Weird ... maybe a
-	// @TODO
 	// 
-	// Calling this hook
-	// results in a duplicated the call 
-	// to update_option('impressum_imprint_options')
-	// which is weird.
-	// 
-	// Why do we want do this?
-	// Disabled for now.
-	// 
-	// Lets see.
-	// add_action( 'save_post_' . $ft_site, __NAMESPACE__ . '\\set_pref_lang_from_ft_site_update', 100, 3 );
+	// update_option_ is not triggered reliably
+	// so switch to pre_update_option_
+	add_action( 'pre_update_option_' . Impressum\OPTION, __NAMESPACE__ . '\\set_pref_lang_from_impressum', 100, 2 );
 
-
-	// DEBUG theese functions.
-	// add_action( 'admin_menu', __NAMESPACE__ . '\\debug' );
 }
 
 
@@ -68,17 +55,20 @@ function load_plugin() {
  * @param mixed  $o     The new option value.
  * @param string $option    Option name.
  */
-function set_pref_lang_from_impressum( $old_o, $o ) {
+// function set_pref_lang_from_impressum( $old_o, $o ) {
+function set_pref_lang_from_impressum(  $o, $old_o ) : array {
 
 	// do nothing,
-	// if sth. is wrong
-	if ( ! isset( $o['country'] ) )
-		return;
-
-	// do nothing,
-	// if nothing (relevant) has changed
-	if ( $old_o['country'] === $o['country'] )
-		return;
+	// if nothing (on the address) has changed
+	// $o['country'] could be unset by Figuren_Theater\Onboarding\Sites\Installation\set_imprint_page()
+	// so check it
+	if ( isset($o['country']) && 
+		 // can be bool, if non existent yet
+		 isset($old_o['country']) && 
+		 $old_o['country'] === $o['country'] &&
+		 $old_o['address'] === $o['address']
+	)
+		return $o;
 
 	// change order of default translations, 
 	// based on sites' country
@@ -135,7 +125,7 @@ function set_pref_lang_from_impressum( $old_o, $o ) {
 
 	// get current ft_site
 	$ft_site    = Figuren_Theater\FT::site();
-	$use_formal = $ft_site->has_feature( [ 'in-foermlicher-sprache' ] );
+	$use_formal = (bool) $ft_site->has_feature( [ 'in-foermlicher-sprache' ] );
 
 	// switch formal and informal translations, based on choosen feature
 	$_defaults = ( $use_formal ) ? $_formal_defaults : $_informal_defaults;
@@ -145,66 +135,7 @@ function set_pref_lang_from_impressum( $old_o, $o ) {
 
 	//
 	update_option( 'WPLANG', $_defaults[0], 'yes' );
-}
 
-
-/**
- * DISABLED for weird reasons.
- * Read above.
- * 
- * [set_pref_lang_from_ft_site_update description]
- * 
- * @param int      $post_ID [description]
- * @param WP_Post  $post    [description]
- * @param bool     $update  [description]
-function set_pref_lang_from_ft_site_update( int $post_ID, \WP_Post $post, bool $update ) {
-
-	// get current ft_site
-	$ft_site = Figuren_Theater\FT::site();
-
-	// ... maybe a
-	// @TODO
 	// 
-	// this could get risky,
-	// when those 'imprint...'-data is changed from 
-	// somewhere remote.
-	// Could be better to check for the (unsure) 'original_blog_id' post_meta
-	// or to go with a switch_to_blog().
-	// 
-	// Let's see.
-	if ( $ft_site->get_site_post_id() !== $post_ID )
-		return;
-
-	set_pref_lang_from_impressum(
-		['country'=>''],
-		\get_option(
-			'impressum_imprint_options',
-			['country'=>'deu']
-		)
-	);
-}
- */
-
-
-function debug() {
-	// \add_filter( 
-	//	'pre_option_preferred_languages',
-	//	function ($option)
-	//	{
-	//		return 'de_DE,de_DE_formal';
-	//	},
-	//	30,
-	//	1
-	// );
-	\add_filter( 
-		'pre_option_WPLANG',
-		function ($option)
-		{
-			return 'de_DE';
-		},
-		30,
-		1
-	);
-	\do_action( 'qm/error', \get_option( 'preferred_languages' ) );
-	\do_action( 'qm/error', \get_option( 'WPLANG' ) );
+	return $o;
 }

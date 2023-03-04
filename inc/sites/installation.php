@@ -7,6 +7,8 @@
 
 namespace Figuren_Theater\Onboarding\Sites\Installation;
 
+use Figuren_Theater\FeaturesRepo; // TEMP_USER_META,
+
 use FT_CORESITES;
 
 use Figuren_Theater; // FT, FT_Query
@@ -20,6 +22,7 @@ use Figuren_Theater\Network\Users;
 use WP_Site;
 
 use function add_action;
+use function apply_filters;
 use function do_action;
 use function esc_html;
 use function get_blog_option;
@@ -53,43 +56,52 @@ function bootstrap() {
 
 function load( WP_Site $new_site, $args ) : void {
 
+
+
 	add_action( 
-		__NAMESPACE__.'\\insert_first_content', 
-		// 'Figuren_Theater\\Network\\Setup\\insert_first_content', 
+		__NAMESPACE__ . '\\insert_first_content', 
 		__NAMESPACE__ . '\\create_new__ft_site', 
-		10, 
+		0, 
 		2
 	);
+/*
+	add_action( 
+		__NAMESPACE__ . '\\insert_first_content', 
+		__NAMESPACE__ . '\\set_home_page',
+		5, 
+		2
+	);*/
 
 	add_action( 
-		__NAMESPACE__.'\\insert_first_content', 
-		// 'Figuren_Theater\\Network\\Setup\\insert_first_content', 
-		__NAMESPACE__ . '\\set_home_page'
-	);
-
-	add_action( 
-		__NAMESPACE__.'\\insert_first_content', 
-		// 'Figuren_Theater\\Network\\Setup\\insert_first_content', 
+		__NAMESPACE__ . '\\insert_first_content', 
 		__NAMESPACE__ . '\\set_imprint_page',
-		10, 
+		5, 
 		2
 	);
 
 	add_action( 
-		__NAMESPACE__.'\\insert_first_content', 
-		// 'Figuren_Theater\\Network\\Setup\\insert_first_content', 
-		__NAMESPACE__ . '\\set_privacy_page'
+		__NAMESPACE__ . '\\insert_first_content', 
+		__NAMESPACE__ . '\\set_privacy_page',
+		5
 	);
-
-
+	
+	// taken from \wp-includes\ms-site.php
+	$switch = false;
+	if ( get_current_blog_id() !== $new_site->id ) {
+		$switch = true;
+		switch_to_blog( $new_site->id );
+	}
 
 	// 
 	do_action( 
-		__NAMESPACE__.'\\insert_first_content', 
-		// 'Figuren_Theater\\Network\\Setup\\insert_first_content', 
+		__NAMESPACE__ . '\\insert_first_content', 
 		$new_site,
 		$args
 	);
+
+	if ( $switch ) {
+		restore_current_blog();
+	}
 }
 
 
@@ -138,7 +150,7 @@ function create_new__ft_site( WP_Site $new_site, $args ) {
 /**
  * Fired once a site has been inserted into the database.
  */
-function set_home_page() {
+function set_home_page( WP_Site $new_site, $args ) {
 	// do we have a home in place ?
 	// $home_page_id = (int) \get_option( 'page_on_front' );
 
@@ -148,33 +160,43 @@ function set_home_page() {
 		// return;
 	// }
 
-
 	// if the home-page not exists , go on
 	// and create one ...
 
-	// get HTML homepage template from file
-	// because its easier to maintain (for the moment)
-	#@TODO		$_ft_homepage_template = \file_get_contents( __DIR__ . '/../../../assets/html/figuren_theater_usersites__default-homepage.tmpl.html' );
-
+	// get the user, who registered the site
+	// or fallback to the bot user, if some error occured
+	$post_author = ( isset($args['user_id']) && 0 < $args['user_id'] ) ? $args['user_id'] : Users\ft_bot::id();
 
 	$new_home_page = [
 
-		'post_author'    => Users\ft_bot::id(),
+		'post_author'    => $post_author,
 
-		#@TODO			'post_content'   => $_ft_homepage_template,
-		'post_title'     => esc_html( get_bloginfo( 'name' ) ),
-		'post_name'      => "startseite",
+		'post_title'     => __('Front page'),
+		// 'post_name'      => __('Front page'),
 
-		'post_type'      => "page",  // must be 'page'  to accept the 'page_template' below
-		'post_status'    => "publish",
+		'post_type'      => 'page',
+		'post_status'    => 'publish',
 		'menu_order'     => 0,
 
-		'comment_status' => "closed",
-		'ping_status'    => "closed",
+		'comment_status' => 'closed',
+		'ping_status'    => 'closed',
 
 		// 'meta_input'     => [
 		// ],
 	];
+	
+	// Get initial content for the front-page,
+	// the default is blank.
+	$_ft_frontpage_content = apply_filters( 
+		__NAMESPACE__ . '\\frontpage_content',
+		false,
+		$new_site,
+		$args
+	);
+
+	if ( is_string( $_ft_frontpage_content ) ) {
+		$new_home_page['post_content'] = $_ft_frontpage_content;
+	}
 
 	// and save it to the db
 	$home_page_id = wp_insert_post( $new_home_page, true );
@@ -210,10 +232,9 @@ function set_imprint_page( WP_Site $new_site, $args ) {
 	// }
 
 	// if the imprint-page not exists , go on
-	// and get the ID of the 'main' privacy-page from the network_blog
+	// and get the ID of the 'main' imprint-page from the network_blog
 	// this is the one to pull
 	$ft_coresites_ids = array_flip( FT_CORESITES );
-	// $remote_site_id = (int) $ft_coresites_ids['root'];
 	$remote_site_id = (int) $ft_coresites_ids['mein']; // 
 	
 	$remote_impressum_imprint_options = get_blog_option( 
@@ -239,25 +260,56 @@ function set_imprint_page( WP_Site $new_site, $args ) {
 	// run pulling
 	$imprint_page_id = $distributor->run();
 
-	// .. and set our option if everything was fine
-	if ( ! empty( $imprint_page_id ) && inc\helper::post_id_exists( (int) $imprint_page_id[0] ) ) {
-
-		$impressum_imprint_options = [
-			'page'                => (string) $imprint_page_id[0],
-			'country'             => 'deu',
-			'legal_entity'        => '',
-			'name'                => esc_html( get_bloginfo( 'name' ) ),
-			'address'             => '',
-			'address_alternative' => '',
-			'email'               => esc_html( get_bloginfo( 'admin_email' ) ),
-			'phone'               => '',
-			'fax'                 => '',
-			'press_law_person'    => '',
-			'vat_id'              => '',
-		];
-
-		update_option( 'impressum_imprint_options', $impressum_imprint_options, 'no' );
+	// return on failure or
+	// set our option if everything was fine
+	if ( empty( $imprint_page_id ) || ! inc\helper::post_id_exists( (int) $imprint_page_id[0] ) ) {
+		return;
 	}
+
+	// prepare some data,
+	// which was collected during registration
+	$person = \get_userdata( $args['user_id'] );
+
+	// get temporary data, collected during registration
+	$user_registration_data = $person->get( FeaturesRepo\TEMP_USER_META );
+
+	$impressum_imprint_options = [
+		'page'                => (string) $imprint_page_id[0],
+		'country'             => '', // leave empty as it gets populated on save, if empty
+		'legal_entity'        => 'self', // self-employed
+		'name'                => $person->display_name,
+		'address'             => $user_registration_data['adr'],
+		'address_alternative' => '',
+		'email'               => esc_html( get_bloginfo( 'admin_email' ) ),
+		'phone'               => '',
+		'fax'                 => '',
+		'press_law_person'    => $person->display_name,
+		'vat_id'              => '',
+	];
+
+	// unset new country
+	// to prevent automatic combinations of ADR + COUNTRY that dont fit
+	// possible, when 'impressum_imprint_options' is pre-populated during install 
+	// but was never really used within this blog
+	unset( $impressum_imprint_options['country'] );
+	update_option( 'impressum_imprint_options', $impressum_imprint_options, 'no' );
+
+	// ---
+
+	// now that we successfully updated the adr
+	// the blog has default terms of geolocation taxonomy available
+	// but we need to trigger an update on its ft_site
+	// to have the new geo-data distributed to all plattforms
+	// 
+	// that's a little bit weird,
+	// because normally this shouldn't be needed,
+	// as we have a 'update_option_default_{GEOTAX}_terms' action in place
+	// which SHOULD trigger an update of this 'ft_site' post
+	// but nothing ....
+	// 
+	// update_option( 'blogname', $_impressum_imprint_options['name'] );
+	// update_option( 'blogdescription', $_impressum_imprint_options['name'] );
+	
 }
 
 
