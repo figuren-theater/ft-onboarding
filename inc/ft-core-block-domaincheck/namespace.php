@@ -21,6 +21,8 @@ const PLUGINPATH = FT_VENDOR_DIR . '/figuren-theater/' . BASENAME;
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
 function bootstrap() {
 
@@ -31,7 +33,7 @@ function load_plugin() {
 
 	if ( is_network_admin() || is_user_admin() )
 		return;
-	
+
 	$config = Figuren_Theater\get_config()['modules']['onboarding'];
 	if ( ! $config['ft-core-block-domaincheck'] )
 		return; // early
