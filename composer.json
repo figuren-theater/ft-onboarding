@@ -60,14 +60,14 @@
 	],
 	"require": {
         "php": ">=7.1",
-        "figuren-theater/ft-options": "^1",
-        "figuren-theater/ft-core-block-domaincheck": "^0.1",
-        "figuren-theater/install.php": "^1.1",
-        "stuttter/wp-user-profiles": "^2.6",
-        "stuttter/wp-multi-network":"^2.5",
-        "wpackagist-plugin/impressum":"^2.0",
-        "wpackagist-plugin/preferred-languages":"^1.8",
-        "wpackagist-plugin/wp-approve-user": "^10"
+        "figuren-theater/ft-options": "*",
+        "figuren-theater/ft-core-block-domaincheck": "0.1.2",
+        "figuren-theater/install.php": "1.1.0",
+        "stuttter/wp-user-profiles": "2.6.2",
+        "stuttter/wp-multi-network":"2.5.2",
+        "wpackagist-plugin/impressum":"2.0.3",
+        "wpackagist-plugin/preferred-languages":"1.8.0",
+        "wpackagist-plugin/wp-approve-user": "10"
 	},
     "extra": {
         "altis": {
