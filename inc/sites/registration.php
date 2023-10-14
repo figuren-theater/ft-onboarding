@@ -34,12 +34,12 @@ function bootstrap() {
 function load() : void {
 
 	// allow subdomains with 3 chars only
-	add_filter( 'minimum_site_name_length', __NAMESPACE__ . '\\minimum_site_name_length' ); 
+	add_filter( 'minimum_site_name_length', __NAMESPACE__ . '\\minimum_site_name_length' );
 
 	if ( ! is_admin() )
 		return;
 
-	// 
+	//
 	add_action( 'network_site_new_form', __NAMESPACE__ . '\\add_extra_field_on_blog_signup' ); // BE
 
 	// DEBUG
@@ -58,7 +58,7 @@ function add_extra_field_on_blog_signup() {
 
 	?>
 	<table class="form-table" role="presentation">
-	<tbody><!-- 
+	<tbody><!--
 		<tr class="form-field">
 			<th scope="row"><label for="ft_level"><?php _e( 'LEVEL ID von websites.fuer.f.t' ); ?> <span class="required">*</span></label></th>
 			<td><input style="max-width:25em;" name="ft_level" type="number" class="regular-text" id="ft_level"  aria-describedby="site-ft_level" /></td>
@@ -74,7 +74,7 @@ function add_extra_field_on_blog_signup() {
 
 function __get_ft_level_select() : string {
 	// 1. switch to (a) sitemanagement-blog, which has the required 'ft_level'-data
-	// TODO // find nice way to get (one of many) sitemanagement-blogs
+	// TODO #18 // find nice way to get (one of many) sitemanagement-blogs
 	$sitemanagement_blog = array_flip( FT_CORESITES )['webs'];
 	switch_to_blog( $sitemanagement_blog );
 
@@ -90,13 +90,13 @@ function __get_ft_level_select() : string {
 
 function __ft_level_select() : string {
 
-	// not avail. via composer, 
+	// not avail. via composer,
 	// so we have to require it usually
 	// if (file_exists( WPMU_PLUGIN_DIR . '/_ft_vendor/wp_dropdown_posts/wp_dropdown_posts.php' ) )
 	if (file_exists( Onboarding\DIRECTORY . '/inc/sites/wp_dropdown_posts/wp_dropdown_posts.php' ) )
 		// require_once WPMU_PLUGIN_DIR . '/_ft_vendor/wp_dropdown_posts/wp_dropdown_posts.php';
 		require_once Onboarding\DIRECTORY . '/inc/sites/wp_dropdown_posts/wp_dropdown_posts.php';
-	
+
 	if ( ! function_exists( 'wp_dropdown_posts' ) )
 		return '';
 
@@ -120,7 +120,7 @@ function __ft_level_select() : string {
 		// 'value_field'           => 'ID',
 		// 'order'                 => 'ASC',
 		// 'orderby'               => 'post_title',
-		
+
 
 		// WP_Query arguments
 		'post_type'             => Post_Types\Post_Type__ft_level::NAME,
@@ -134,12 +134,12 @@ function __ft_level_select() : string {
 
 function debug_ft_Site_Registration() {
 	// 1. switch to (a) sitemanagement-blog, which has the required 'ft_level'-data
-	// TODO // find nice way to get (one of many) sitemanagement-blogs
+	// TODO #18 // find nice way to get (one of many) sitemanagement-blogs
 	$sitemanagement_blog = array_flip( FT_CORESITES )['webs'];
 	// \switch_to_blog( $sitemanagement_blog );
 
 	// 4. get 'ft_level'-posts
-	// 
+	//
 	// 4.1 Init our WP_Query wrapper
    // $ft_level_query = \Figuren_Theater\FT_Query::init();
 
