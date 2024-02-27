@@ -77,28 +77,39 @@ function add_extra_field_on_blog_signup(): void {
 }
 
 
+/**
+ * Get a html-select with potential new levels for site-creation.
+ * 
+ * @todo https://github.com/figuren-theater/ft-onboarding/issues/18 Find nice way to get (one of many) sitemanagement-blogs.
+ *
+ * @return string
+ */
 function get_ft_level_select(): string {
-	// 1. switch to (a) sitemanagement-blog, which has the required 'ft_level'-data
-	// TODO #18 // find nice way to get (one of many) sitemanagement-blogs
+	// 1. Switch to (a) sitemanagement-blog, which has the required 'ft_level'-data.
 	$sitemanagement_blog = array_flip( FT_CORESITES )['webs'];
-	switch_to_blog( $sitemanagement_blog );
+	switch_to_blog( $sitemanagement_blog ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.switch_to_blog_switch_to_blog
 
-	// 4. get 'ft_level'-posts
+	// 4. Get all 'ft_level'-posts.
 	$ft_level_select = ft_level_select();
 
-	// 5. restore_current_blog();
+	// 5. Restore to current blog.
 	restore_current_blog();
 
 	return $ft_level_select;
 }
 
 
+/**
+ * Get potential new levels from current network-site aka network-root.
+ *
+ * @return string
+ */
 function ft_level_select(): string {
 
-	// not avail. via composer,
-	// so we have to require it usually
+	// Unfortunately not available via composer,
+	// so we have to require it manually.
 	if ( file_exists( Onboarding\DIRECTORY . '/inc/sites/wp_dropdown_posts/wp_dropdown_posts.php' ) ) {
-		require_once Onboarding\DIRECTORY . '/inc/sites/wp_dropdown_posts/wp_dropdown_posts.php';
+		require_once Onboarding\DIRECTORY . '/inc/sites/wp_dropdown_posts/wp_dropdown_posts.php'; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
 	}
 
 	if ( ! function_exists( 'wp_dropdown_posts' ) ) {
@@ -106,8 +117,6 @@ function ft_level_select(): string {
 	}
 
 	$ft_level_dropdown_args = [
-		// 'selected'              => FALSE,
-		// 'pagination'            => FALSE,
 		'posts_per_page'        => 25,
 		'post_status'           => 'publish',
 		'cache_results'         => true,
@@ -115,19 +124,10 @@ function ft_level_select(): string {
 		'echo'                  => 0,
 		'select_name'           => Post_Types\Post_Type__ft_level::NAME,
 		'id'                    => Post_Types\Post_Type__ft_level::NAME,
-		// 'class'                 => '',
 		'show'                  => 'post_title',
-		// 'show_callback'         => NULL,
 		'show_option_all'       => 'Choose ft_level as receipe.',
-		// 'show_option_none'      => 'No ft_level avail. :(',
-		// 'option_none_value'     => '',
-		// 'multi'                 => FALSE,
-		// 'value_field'           => 'ID',
-		// 'order'                 => 'ASC',
-		// 'orderby'               => 'post_title',
 
-
-		// WP_Query arguments
+		// Typical WP_Query arguments.
 		'post_type'             => Post_Types\Post_Type__ft_level::NAME,
 		'no_found_rows'         => true, // Useful when pagination is not needed.
 	];

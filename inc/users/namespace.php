@@ -26,7 +26,7 @@ function bootstrap(): void {
 /**
  * Load modifications to 'user_register' workflow.
  *
- * @param  int  $user_id The ID of the new user.
+ * @param  int $user_id The ID of the new user.
  *
  * @return void
  */
@@ -36,9 +36,9 @@ function load( int $user_id ): void {
 		'ID' => $user_id,
 	];
 
-	$args = __set_names( $args );
+	$args = set_names( $args );
 
-	$args = __set_admin_color( $args );
+	$args = set_admin_color( $args );
 
 	wp_update_user( $args );
 }
@@ -47,13 +47,13 @@ function load( int $user_id ): void {
 /**
  * Save defaults for 'display_name' and 'nickname' based on users first and last name.
  *
- * @param  array $args List of arguments to throw at 'wp_update_user()'.
+ * @param  array<string, int|string> $args List of arguments to throw at 'wp_update_user()'.
  *
- * @return array
+ * @return array<string, int|string>
  */
-function __set_names( array $args ): array {
+function set_names( array $args ): array {
 	
-	$user = get_userdata( $args['ID'] );
+	$user = get_userdata( (int) $args['ID'] );
 	
 	if ( empty( $user->first_name ) || empty( $user->last_name ) ) {
 		return $args;
@@ -70,11 +70,11 @@ function __set_names( array $args ): array {
 /**
  * Set default admin-color-scheme to 'figurentheater'.
  *
- * @param  array $args List of arguments to throw at 'wp_update_user()'.
+ * @param  array<string, int|string> $args List of arguments to throw at 'wp_update_user()'.
  *
- * @return array
+ * @return array<string, int|string> 
  */
-function __set_admin_color( array $args ): array {
+function set_admin_color( array $args ): array {
 	
 	$args['admin_color'] = Admin_UI\Color_Scheme::NAME;
 	

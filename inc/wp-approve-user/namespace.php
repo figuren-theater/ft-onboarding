@@ -8,13 +8,9 @@
 namespace Figuren_Theater\Onboarding\WP_Approve_User;
 
 use FT_VENDOR_DIR;
-
 use Figuren_Theater;
 use Figuren_Theater\Options;
-use function Figuren_Theater\get_config;
-
 use Obenland_Wp_Approve_User;
-
 use function add_action;
 use function add_filter;
 use function remove_action;
@@ -31,9 +27,10 @@ function bootstrap(): void {
 
 	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
 
-	// the plugin itself will init on 'plugins_loaded:0'
+	// The plugin itself will init on 'plugins_loaded:0'.
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', -1 );
 }
+
 
 /**
  * Conditionally load the plugin itself and its modifications.
@@ -47,29 +44,34 @@ function load_plugin(): void {
 		return;
 	}
 
-	// needed to load the plugin
+	// Needed to load the plugin.
 	add_filter( 'pre_option_users_can_register', '__return_true' );
 
 	require_once FT_VENDOR_DIR . PLUGINPATH; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
 
 
-	// the plugin itself will load on 'plugins_loaded:10'
+	// The plugin itself will load on 'plugins_loaded:10'.
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\unload_plugin_parts', 11 );
 }
 
 
-function unload_plugin_parts() {
-	// do check if wp-user-approve is loaded !!
+/**
+ * Remove network-admin menu.
+ *
+ * @return void
+ */
+function unload_plugin_parts(): void {
+	// Remove plugins menu.
 	$wpau = Obenland_Wp_Approve_User::get_instance();
-	if ( ! $wpau ) {
-		return;
-	}
-
-	// Remove plugins menu
 	remove_action( 'network_admin_menu', [ $wpau, 'admin_menu' ], 10 );
 }
 
 
+/**
+ * Handle options
+ *
+ * @return void
+ */
 function filter_options(): void {
 
 	$_options = [

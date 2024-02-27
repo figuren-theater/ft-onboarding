@@ -7,28 +7,28 @@
 
 namespace Figuren_Theater\Onboarding\Sites\Installation;
 
+use Figuren_Theater; 
 use Figuren_Theater\FeaturesRepo;
-use FT_CORESITES;
-use Figuren_Theater; // FT, FT_Query
-
 use Figuren_Theater\inc;
-
 use Figuren_Theater\Network\Post_Types;
 use Figuren_Theater\Network\Sync;
 use Figuren_Theater\Network\Users;
-
+use FT_CORESITES;
 use WP_Site;
-
 use function add_action;
 use function apply_filters;
+use function check_admin_referer;
 use function do_action;
 use function esc_html;
 use function get_blog_option;
 use function get_bloginfo;
+use function get_current_blog_id;
+use function get_userdata;
 use function is_wp_error;
+use function restore_current_blog;
+use function switch_to_blog;
 use function update_option;
 use function wp_insert_post;
-
 
 /**
  * Bootstrap module, when enabled.
@@ -39,9 +39,7 @@ function bootstrap(): void {
 
 	/**
 	 * Fires once a site has been inserted into the database.
-	 */
-	// 'wp_insert_site' => 'insert_first_content', // kept to remind
-	/**
+	 * 
 	 * The hook wpmu_new_blog gives you a deprecated notice 
 	 * and tells you to use wp_insert_site. 
 	 * 
@@ -54,9 +52,15 @@ function bootstrap(): void {
 }
 
 
-function load( WP_Site $new_site, $args ): void {
-
-
+/**
+ * Fires when a site’s initialization routine should be executed.
+ *
+ * @param  WP_Site                   $new_site New site object.
+ * @param  array<string, int|string> $args     Arguments for the initialization.
+ *
+ * @return void
+ */
+function load( WP_Site $new_site, array $args ): void {
 
 	add_action( 
 		__NAMESPACE__ . '\\insert_first_content', 
@@ -64,13 +68,15 @@ function load( WP_Site $new_site, $args ): void {
 		0, 
 		2
 	);
-	/*
+	
+	/* phpcs:ignore 
 	add_action( 
 		__NAMESPACE__ . '\\insert_first_content', 
 		__NAMESPACE__ . '\\set_home_page',
 		5, 
 		2
-	);*/
+	);
+	*/
 
 	add_action( 
 		__NAMESPACE__ . '\\insert_first_content', 
@@ -85,11 +91,11 @@ function load( WP_Site $new_site, $args ): void {
 		5
 	);
 	
-	// taken from \wp-includes\ms-site.php
+	// Taken from \wp-includes\ms-site.php.
 	$switch = false;
 	if ( get_current_blog_id() !== $new_site->id ) {
 		$switch = true;
-		switch_to_blog( $new_site->id );
+		switch_to_blog( $new_site->id ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.switch_to_blog_switch_to_blog
 	}
 
 		do_action( 
@@ -109,13 +115,15 @@ function load( WP_Site $new_site, $args ): void {
  *
  * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/ms-site.php#L105 
  *
- * @since 5.1.0
- *
- * @param WP_Site $new_site New site object.
- * @param array   $args     Arguments for the initialization.
+ * @param  WP_Site                   $new_site New site object.
+ * @param  array<string, int|string> $args     Arguments for the initialization.
+ * 
+ * @return void
  */
-function create_new__ft_site( WP_Site $new_site, $args ) {
- 
+function create_new__ft_site( WP_Site $new_site, array $args ): void {
+	// Defined at wp-admin/network/site-new.php.
+	check_admin_referer( 'add-blog', '_wpnonce_add-blog' );
+
 	if ( isset( $_POST['ft_level'] ) && 0 < intval( $_POST['ft_level'] ) ) {
 		$args['ft_level'] = (int) $_POST['ft_level'];
 	}
@@ -142,36 +150,29 @@ function create_new__ft_site( WP_Site $new_site, $args ) {
 
 	// 5. add 'ft_bot' user to new website
 	// by calling 'him' short circuited
-	$_temp_ft_bot = Users\ft_bot::id();
+	Users\ft_bot::id();
 }
 
 
 /**
  * Fired once a site has been inserted into the database.
+ *
+ * @param  WP_Site                   $new_site New site object.
+ * @param  array<string, int|string> $args     Arguments for the initialization.
+ * 
+ * @return void
  */
-function set_home_page( WP_Site $new_site, $args ) {
-	// do we have a home in place ?
-	// $home_page_id = (int) \get_option( 'page_on_front' );
-
-	// if the home-page already exists 
-	// JUMP OUT
-	// if ( $home_page_id && inc\helper::post_id_exists( $home_page_id ) ) {
-		// return;
-	// }
-
-	// if the home-page not exists , go on
-	// and create one ...
-
-	// get the user, who registered the site
-	// or fallback to the bot user, if some error occured
+function set_home_page( WP_Site $new_site, array $args ) {
+	
+	// Get the user, who registered the site
+	// or fallback to the bot user, if some error occured.
 	$post_author = ( isset( $args['user_id'] ) && 0 < $args['user_id'] ) ? $args['user_id'] : Users\ft_bot::id();
 
 	$new_home_page = [
 
 		'post_author'    => $post_author,
 
-		'post_title'     => __( 'Front page' ),
-		// 'post_name'      => __('Front page'),
+		'post_title'     => __( 'Front page', 'default' ),
 
 		'post_type'      => 'page',
 		'post_status'    => 'publish',
@@ -179,9 +180,6 @@ function set_home_page( WP_Site $new_site, $args ) {
 
 		'comment_status' => 'closed',
 		'ping_status'    => 'closed',
-
-		// 'meta_input'     => [
-		// ],
 	];
 	
 	// Get initial content for the front-page,
@@ -197,40 +195,27 @@ function set_home_page( WP_Site $new_site, $args ) {
 		$new_home_page['post_content'] = $_ft_frontpage_content;
 	}
 
-	// and save it to the db
+	// Save it to the DB.
 	$home_page_id = wp_insert_post( $new_home_page, true );
 
 	if ( ! is_wp_error( $home_page_id ) ) {
-				update_option( 'page_on_front', (int) $home_page_id, 'yes' );
-	} else {
-				do_action( 'qm/error', $home_page_id );
+		update_option( 'page_on_front', (int) $home_page_id, 'yes' );
 	}
 }
-
-
 
 
 /**
  * Fired once a site has been inserted into the database.
  * 
- * @param WP_Site $new_site New site object.
- * @param array   $args     Arguments for the initialization.
+ * @param  WP_Site                   $new_site New site object.
+ * @param  array<string, int|string> $args     Arguments for the initialization.
+ * 
+ * @return void
  */
-function set_imprint_page( WP_Site $new_site, $args ) {
-	// do we have a imprint in place ?
-	// $impressum_imprint_options = \get_option( 'impressum_imprint_options' );
+function set_imprint_page( WP_Site $new_site, array $args ): void {
 
-	// $imprint_page_id = ( isset($impressum_imprint_options['page']) ) ? (int) $impressum_imprint_options['page'] : false;
-
-	// if the imprint-page already exists 
-	// JUMP OUT
-	// if ( $imprint_page_id && inc\helper::post_id_exists( $imprint_page_id ) ) {
-		// return;
-	// }
-
-	// if the imprint-page not exists , go on
-	// and get the ID of the 'main' imprint-page from the network_blog
-	// this is the one to pull
+	// Get the ID of the 'main' imprint-page from the network_blog,
+	// this is the one to pull.
 	$ft_coresites_ids                 = array_flip( FT_CORESITES );
 	$remote_site_id                   = (int) $ft_coresites_ids['mein'];    
 	$remote_impressum_imprint_options = get_blog_option( 
@@ -240,39 +225,35 @@ function set_imprint_page( WP_Site $new_site, $args ) {
 	);
 	$remote_imprint_page_id           = ( isset( $remote_impressum_imprint_options['page'] ) ) ? (int) $remote_impressum_imprint_options['page'] : false;
 
-	// if we have nothing from remote 
-	// JUMP OUT
+	// If we have nothing from remote, JUMP OUT.
 	if ( ! $remote_imprint_page_id ) {
 		return;
 	}
 
-	// establish a connection 
-	// and define pulling
+	// Establish a connection and define pulling.
 	$distributor = new Sync\Pull( 
 		[ $remote_imprint_page_id ],
 		$remote_site_id,
 		'page'
 	);
-	// run pulling
+	// Run pulling.
 	$imprint_page_id = $distributor->run();
 
-	// return on failure or
-	// set our option if everything was fine
+	// Return on failure or set our option if everything was fine.
 	if ( empty( $imprint_page_id ) || ! inc\helper::post_id_exists( (int) $imprint_page_id[0] ) ) {
 		return;
 	}
 
-	// prepare some data,
-	// which was collected during registration
-	$person = \get_userdata( $args['user_id'] );
+	// Prepare some data, which was collected during registration.
+	$person = get_userdata( $args['user_id'] );
 
-	// get temporary data, collected during registration
+	// Get temporary data, collected during registration.
 	$user_registration_data = $person->get( FeaturesRepo\TEMP_USER_META );
 
 	$impressum_imprint_options = [
 		'page'                => (string) $imprint_page_id[0],
-		'country'             => '', // leave empty as it gets populated on save, if empty
-		'legal_entity'        => 'self', // self-employed
+		'country'             => '', // Leave empty as it gets populated on save, if empty.
+		'legal_entity'        => 'self', // Means 'self-employed' in the 'Impressum' plugin.
 		'name'                => $person->display_name,
 		'address'             => $user_registration_data['adr'],
 		'address_alternative' => '',
@@ -283,75 +264,48 @@ function set_imprint_page( WP_Site $new_site, $args ) {
 		'vat_id'              => '',
 	];
 
-	// unset new country
-	// to prevent automatic combinations of ADR + COUNTRY that dont fit
-	// possible, when 'impressum_imprint_options' is pre-populated during install 
-	// but was never really used within this blog
+	// Unset new country,
+	// to prevent automatic combinations of ADR + COUNTRY that dont fit.
+	// Maybe possible, when 'impressum_imprint_options' is pre-populated during install,
+	// but was never really used within this blog.
 	unset( $impressum_imprint_options['country'] );
 	update_option( 'impressum_imprint_options', $impressum_imprint_options, 'no' );
-
-	// ---
-
-	// now that we successfully updated the adr
-	// the blog has default terms of geolocation taxonomy available
-	// but we need to trigger an update on its ft_site
-	// to have the new geo-data distributed to all plattforms
-	// 
-	// that's a little bit weird,
-	// because normally this shouldn't be needed,
-	// as we have a 'update_option_default_{GEOTAX}_terms' action in place
-	// which SHOULD trigger an update of this 'ft_site' post
-	// but nothing ....
-	// 
-	// update_option( 'blogname', $_impressum_imprint_options['name'] );
-	// update_option( 'blogdescription', $_impressum_imprint_options['name'] );
 }
-
-
-
 
 
 /**
  * Fired once a site has been inserted into the database.
+ * 
+ * @return void
  */
-function set_privacy_page() {
-	// do we have a privacy-policy in place ?
-	// $policy_page_id = (int) \get_option( 'wp_page_for_privacy_policy' );
+function set_privacy_page(): void {
 
-	// if the privacy-policy-page already exists 
-	// JUMP OUT
-	// if ( $policy_page_id && inc\helper::post_id_exists( $policy_page_id ) ) {
-		// return;
-	// }
-
-	// if the privacy-policy-page not exists , go on
-	// and get the ID of the 'main' privacy-page from the network_blog
-	// this is the one to pull
-	$ft_coresites_ids = array_flip( FT_CORESITES );
-	// $remote_site_id = (int) $ft_coresites_ids['root'];
+	// Get the ID of the 'main' privacy-page from the network_blog,
+	// this is the one to pull.
+	$ft_coresites_ids      = array_flip( FT_CORESITES );
 	$remote_site_id        = (int) $ft_coresites_ids['mein']; 
 	$remote_policy_page_id = (int) get_blog_option( 
 		$remote_site_id,
 		'wp_page_for_privacy_policy',
 		false
 	);
-	// if we have nothing from remote 
-	// JUMP OUT
+
+	// If we have nothing from remote, JUMP OUT.
 	if ( ! $remote_policy_page_id ) {
 		return;
 	}
 
-	// establish a connection 
-	// and define pulling
+	// Establish a connection and define pulling.
 	$distributor = new Sync\Pull( 
 		[ $remote_policy_page_id ],
 		$remote_site_id,
 		'page'
 	);
-	// run pulling
+	
+	// Run pulling.
 	$policy_page_id = $distributor->run();
 
-	// .. and set our option if everything was fine
+	// Save our option if everything was fine.
 	if ( ! empty( $policy_page_id ) ) {
 		update_option( 'wp_page_for_privacy_policy', (int) $policy_page_id[0], 'no' );
 	}

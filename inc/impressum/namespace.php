@@ -32,8 +32,12 @@ function bootstrap(): void {
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 4 );
 }
 
-
-function load_plugin() {
+/**
+ * Load the plugin itself and its modifications.
+ *
+ * @return void
+ */
+function load_plugin(): void {
 
 	require_once FT_VENDOR_DIR . PLUGINPATH; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
 
@@ -43,41 +47,56 @@ function load_plugin() {
 		return;
 	}
 
-	add_action( 'impressum_country_after_sort', __NAMESPACE__ . '\\impressum_country_after_sort' );
-	add_action( 'impressum_legal_entity_after_sort', __NAMESPACE__ . '\\impressum_legal_entity_after_sort' );
+	add_filter( 'impressum_country_after_sort', __NAMESPACE__ . '\\impressum_country_after_sort' );
+	add_filter( 'impressum_legal_entity_after_sort', __NAMESPACE__ . '\\impressum_legal_entity_after_sort' );
 
 	add_action( 'admin_head-settings_page_impressum', __NAMESPACE__ . '\\cleanup_admin_ui' );
 }
 
 
-function filter_options() {
+/**
+ * Handle options
+ *
+ * @return void
+ */
+function filter_options(): void {
 	
 	$_options = [
 		'dismissed-impressum_welcome_notice' => true,
-		// OPTION => [] // DO NOT HANDLE, as it's the user-data
+		// OPTION => [] // DO NOT HANDLE, as it's the user-data!
 	];
 
-	// gets added to the 'OptionsCollection' 
-	// from within itself on creation
-		new Options\Factory( 
-			$_options, 
-			'Figuren_Theater\Options\Option', 
-			BASENAME, 
-		);
+	// Gets added to the 'OptionsCollection' 
+	// from within itself on creation.
+	new Options\Factory( 
+		$_options, 
+		'Figuren_Theater\Options\Option', 
+		BASENAME, 
+	);
 }
 
 
-// set Impressum-location, ft_geo-catgeories and WP_LANG
-// in one go, by just .... updating an option
-// 
-function pre_update_ft_geo_option_from_imprint( mixed $new_value, mixed $old_value, string $option_name ): mixed {
+/**
+ * Set Impressum-location, ft_geo-catgeories and WP_LANG in one go, by just .... updating an option.
+ * 
+ * Filters a specific option before its value is (maybe) serialized and updated.
+ *
+ * The dynamic portion of the hook name, `$option`, refers to the option name.
+ *
+ * @see https://developer.wordpress.org/reference/hooks/pre_update_option_option/
+ *
+ * @param  array<string, string> $new_value    The new, unserialized option value.
+ * @param  array<string, string> $old_value    The old option value.
+ * @param  string                $option_name  Name of the option in the DB.
+ *
+ * @return array<string, string>               The new, updated option value ready for being saved to the database.
+ */
+function pre_update_ft_geo_option_from_imprint( array $new_value, array $old_value, string $option_name ): array {
 
-	// do nothing,
-	// if nothing (on the address) has changed
-	// $new_value['country'] could be unset by Figuren_Theater\Onboarding\Sites\Installation\set_imprint_page()
-	// so check it
+	// Do nothing, if nothing (on the address) has changed.
+	// Do check '$new_value['country']', which could be unset by Figuren_Theater\Onboarding\Sites\Installation\set_imprint_page().
 	if ( isset( $new_value['country'] ) && 
-		// can be bool, if non existent yet
+		// Can be bool, if non existent yet.
 		isset( $old_value['country'] ) && 
 		$old_value['country'] === $new_value['country']
 		&&
@@ -86,21 +105,20 @@ function pre_update_ft_geo_option_from_imprint( mixed $new_value, mixed $old_val
 		return $new_value;
 	}
 
-	// otherwise
-	// start the geo-engines :)
+	// Start the geo-engines :) !
 	$ft_geo_options_bridge = new Geo\ft_geo_options_bridge();
 	$ft_geo                = $ft_geo_options_bridge->update_option_ft_geo( $old_value, $new_value, $option_name );
 
-	// set adress to verified version
+	// Set adress to verified version.
 	if ( isset( $ft_geo['address'] ) && ! empty( $ft_geo['address'] ) ) {
 		$new_value['address'] = $ft_geo['address'];
 	} else {
-		// or reset
+		// Or reset.
 		$new_value['address'] = $old_value['address'];
 	} 
-	// set country to verified version
+	// Set country to verified version.
 	if ( isset( $ft_geo['geojson']['properties']['address']['country'] ) ) {
-		// crazy country codes by 'Impressum' plugin
+		// Crazy country codes by 'Impressum' plugin.
 		$_country_helper      = [
 			'de' => 'deu',
 			'at' => 'aut',
@@ -108,19 +126,23 @@ function pre_update_ft_geo_option_from_imprint( mixed $new_value, mixed $old_val
 		];
 		$new_value['country'] = $_country_helper[ $ft_geo['geojson']['properties']['address']['country_code'] ];
 	} else {
-		// or reset
+		// Or reset.
 		$new_value['country'] = $old_value['country'];
 	}
 
-	// go on and save
+	// Go on and save.
 	return $new_value;
 }
 
 
 /**
+ * Reduce countries to relevant ones.
+ * 
  * Filter the countries after localized alphabetical sorting.
  * 
- * @param    array $countries The current countries
+ * @param  array<string, string> $countries The current countries.
+ * 
+ * @return array<string, string> $countries The filtered countries.
  */
 function impressum_country_after_sort( array $countries ): array {
 	return [
@@ -132,9 +154,13 @@ function impressum_country_after_sort( array $countries ): array {
 
 
 /**
+ * Reduce legal entities to relevant ones.
+ * 
  * Filter the legal entities after localized alphabetical sorting.
  * 
- * @param    array $countries The current countries
+ * @param  array<string, string> $legal_entities The current legal entities.
+ * 
+ * @return array<string, string>                 The filtered legal entities.
  */
 function impressum_legal_entity_after_sort( array $legal_entities ): array {
 	return [
@@ -144,6 +170,11 @@ function impressum_legal_entity_after_sort( array $legal_entities ): array {
 }
 
 
+/**
+ * Reduce up-sell bloat & clutter from admin settings-page.
+ *
+ * @return void
+ */
 function cleanup_admin_ui(): void {
 	echo '<style>
 		.settings_page_impressum .nav-tab-wrapper,

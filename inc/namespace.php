@@ -12,8 +12,10 @@ use Altis;
 
 /**
  * Register module.
+ *
+ * @return void
  */
-function register() {
+function register(): void {
 
 	$default_settings = [
 		'enabled'                   => true, // Needs to be set.
