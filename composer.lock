@@ -687,15 +687,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-approve-user",
-            "version": "10",
+            "version": "11",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-approve-user/",
-                "reference": "tags/10"
+                "reference": "tags/11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-approve-user.10.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-approve-user.11.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -2468,5 +2468,5 @@
         "php": ">=7.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
