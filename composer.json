@@ -1,94 +1,99 @@
 {
 	"name": "figuren-theater/ft-onboarding",
 	"description": "Onboarding of new users, site- and user creation for a WordPress Multisite network like figuren.theater.",
-    "homepage": "https://websites.fuer.figuren.theater",
-    "type": "wordpress-muplugin",
-    "keywords": ["wordpress", "users", "onboarding", "registration"],
-    "license": "GPL-3.0-or-later",
-    "authors": [
-        {
-            "name": "figuren.theater",
-            "email": "info@figuren.theater"
-        },
-        {
-            "name": "Carsten Bach",
-            "email": "mail@carsten-bach.de",
-            "homepage": "https://carsten-bach.de",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "email": "info@figuren.theater",
-        "issues": "https://github.com/figuren-theater/ft-onboarding/issues",
-        "source": "https://github.com/figuren-theater/ft-onboarding"
-    },
-	"autoload": {
-		"files": [
-			"inc/ft-core-block-domaincheck/namespace.php",
-            "inc/preferred-languages/namespace.php",
-            "inc/impressum/namespace.php",
-            "inc/sites/installation.php",
-            "inc/sites/registration.php",
-            "inc/sites/namespace.php",
-            "inc/users/namespace.php",
-            "inc/wp-approve-user/namespace.php",
-            "inc/wp-multi-network/namespace.php",
-            "inc/wp-user-profiles/namespace.php",
-			"inc/namespace.php"
-		],
-        "classmap": [
-            "inc/"
-        ]
-	},
-	"repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/figuren-theater/ft-core-block-domaincheck"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/figuren-theater/install.php"
-        },
+	"license": "GPL-3.0-or-later",
+	"type": "wordpress-muplugin",
+	"keywords": [
+		"wordpress",
+		"users",
+		"onboarding",
+		"registration"
+	],
+	"authors": [
 		{
-			"type": "composer",
-			"url" : "https://wpackagist.org"
+			"name": "figuren.theater",
+			"email": "info@figuren.theater"
+		},
+		{
+			"name": "Carsten Bach",
+			"email": "mail@carsten-bach.de",
+			"homepage": "https://carsten-bach.de",
+			"role": "Developer"
 		}
 	],
-	"require": {
-        "php": ">=7.1",
-        "figuren-theater/ft-options": "*",
-        "figuren-theater/ft-core-block-domaincheck": "0.1.2",
-        "figuren-theater/install.php": "1.1.0",
-        "stuttter/wp-user-profiles": "2.6.2",
-        "stuttter/wp-multi-network":"2.5.2",
-        "wpackagist-plugin/impressum":"2.0.3",
-        "wpackagist-plugin/preferred-languages":"2.0.1",
-        "wpackagist-plugin/wp-approve-user": "10"
+	"homepage": "https://websites.fuer.figuren.theater",
+	"support": {
+		"email": "info@figuren.theater",
+		"issues": "https://github.com/figuren-theater/ft-onboarding/issues",
+		"source": "https://github.com/figuren-theater/ft-onboarding"
 	},
-    "extra": {
-        "altis": {
-            "install-overrides": [
-                "figuren-theater/ft-core-block-domaincheck",
-                "figuren-theater/install.php",
-                "stuttter/wp-multi-network",
-                "stuttter/wp-user-profiles",
-                "wpackagist-plugin/impressum",
-                "wpackagist-plugin/preferred-languages",
-                "wpackagist-plugin/wp-approve-user"
-            ]
-        }
-    },
-	"config": {
-		"allow-plugins": {
-			"composer/installers": true,
-			"johnpbloch/wordpress-core-installer": true,
-			"koodimonni/composer-dropin-installer": true,
-			"phpstan/extension-installer": true,
-			"ergebnis/composer-normalize": true,
-			"dealerdirect/phpcodesniffer-composer-installer": true
-		}
+	"require": {
+		"php": ">=7.1",
+		"figuren-theater/ft-core-block-domaincheck": "0.1.2",
+		"figuren-theater/ft-options": "*",
+		"figuren-theater/install.php": "1.1.0",
+		"stuttter/wp-multi-network": "2.5.2",
+		"stuttter/wp-user-profiles": "2.6.2",
+		"wpackagist-plugin/impressum": "2.0.3",
+		"wpackagist-plugin/preferred-languages": "2.0.1",
+		"wpackagist-plugin/wp-approve-user": "10"
 	},
 	"require-dev": {
 		"figuren-theater/code-quality": "^1.1"
+	},
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/figuren-theater/ft-core-block-domaincheck"
+		},
+		{
+			"type": "git",
+			"url": "https://github.com/figuren-theater/install.php"
+		},
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		}
+	],
+	"autoload": {
+		"classmap": [
+			"inc/"
+		],
+		"files": [
+			"inc/ft-core-block-domaincheck/namespace.php",
+			"inc/preferred-languages/namespace.php",
+			"inc/impressum/namespace.php",
+			"inc/sites/installation.php",
+			"inc/sites/registration.php",
+			"inc/sites/namespace.php",
+			"inc/users/namespace.php",
+			"inc/wp-approve-user/namespace.php",
+			"inc/wp-multi-network/namespace.php",
+			"inc/wp-user-profiles/namespace.php",
+			"inc/namespace.php"
+		]
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"ergebnis/composer-normalize": true,
+			"johnpbloch/wordpress-core-installer": true,
+			"koodimonni/composer-dropin-installer": true,
+			"phpstan/extension-installer": true
+		}
+	},
+	"extra": {
+		"altis": {
+			"install-overrides": [
+				"figuren-theater/ft-core-block-domaincheck",
+				"figuren-theater/install.php",
+				"stuttter/wp-multi-network",
+				"stuttter/wp-user-profiles",
+				"wpackagist-plugin/impressum",
+				"wpackagist-plugin/preferred-languages",
+				"wpackagist-plugin/wp-approve-user"
+			]
+		}
 	}
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9eaa95248ca6db07479763a4201cbc03",
+    "content-hash": "1a0b6d0ee296d524f287d01c377912b8",
     "packages": [
         {
             "name": "composer/installers",
@@ -207,8 +207,14 @@
             "version": "1.2.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/figuren-theater/ft-options",
+                "url": "https://github.com/figuren-theater/ft-options.git",
                 "reference": "127e6c8bb62cce778ee7468aa548c8326fe9c29a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/figuren-theater/ft-options/zipball/127e6c8bb62cce778ee7468aa548c8326fe9c29a",
+                "reference": "127e6c8bb62cce778ee7468aa548c8326fe9c29a",
+                "shasum": ""
             },
             "require": {
                 "markjaquith/wp-tlc-transients": "^1.0",
@@ -223,6 +229,7 @@
                     "inc/"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-or-later"
             ],
@@ -241,9 +248,9 @@
             "description": "Options management via code for a WordPress multisite like figuren.theater",
             "homepage": "https://websites.fuer.figuren.theater",
             "keywords": [
+                "Settings",
                 "multisite",
                 "options",
-                "settings",
                 "wordpress"
             ],
             "support": {
