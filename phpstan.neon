@@ -7,6 +7,8 @@ parameters:
         - inc/
         - plugin.php
     excludePaths:
+        analyseAndScan:
+            - wordpress/
         analyse:
             - vendor/
             # "/wp-content/" is created during composer install,
@@ -14,6 +16,7 @@ parameters:
             # and not running within ft-platform
             - wp-content/
             - tests/
+            - inc/sites/wp_dropdown_posts/
     ignoreErrors:
         # Find a nicer way instead of ignoring this Error on every ft-module
         - '#Function Altis\\register_module not found\.#'
