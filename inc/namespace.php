@@ -2,13 +2,12 @@
 /**
  * Figuren_Theater Onboarding.
  *
- * @package figuren-theater/onboarding
+ * @package figuren-theater/ft-onboarding
  */
 
 namespace Figuren_Theater\Onboarding;
 
 use Altis;
-use function Altis\register_module;
 
 
 /**
@@ -17,12 +16,12 @@ use function Altis\register_module;
 function register() {
 
 	$default_settings = [
-		'enabled'                   => true, // needs to be set
+		'enabled'                   => true, // Needs to be set.
 		'ft-core-block-domaincheck' => false,
 		'wp-approve-user'           => false,
 		'wp-user-profiles'          => true,
 	];
-	$options = [
+	$options          = [
 		'defaults' => $default_settings,
 	];
 
@@ -37,10 +36,12 @@ function register() {
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
-function bootstrap() {
+function bootstrap(): void {
 
-	// Plugins
+	// Plugins.
 	FT_Core_Block_Domaincheck\bootstrap();
 	Impressum\bootstrap();
 	Preferred_Languages\bootstrap();
@@ -48,7 +49,7 @@ function bootstrap() {
 	WP_Multi_Network\bootstrap();
 	WP_User_Profiles\bootstrap();
 	
-	// Best practices
+	// Best practices.
 	Sites\bootstrap();
 	Users\bootstrap();
 }

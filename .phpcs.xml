@@ -5,6 +5,18 @@
 	<file>.</file>
 	<arg name="basepath" value="./"/><!-- Strip the file paths down to the relevant bit -->
 
+	<!--
+	is created during composer install,
+	when package is tested
+	and not running within ft-platform
+	-->
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/wordpress/*</exclude-pattern>
+	<exclude-pattern>*/wp-content/*</exclude-pattern>
+
+	<!-- Do not check this external ressource. -->
+	<exclude-pattern>inc/sites/wp_dropdown_posts/*</exclude-pattern>
+
 	<!-- Rules: figuren.theater Coding Standards -->
 	<rule ref="figurentheater" />
 

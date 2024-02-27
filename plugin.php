@@ -1,6 +1,6 @@
 <?php
 /**
- * ft-onboarding
+ * Onboarding of new users, site- and user creation for a WordPress Multisite network like figuren.theater.
  *
  * @package           figuren-theater/ft-onboarding
  * @author            figuren.theater
@@ -22,6 +22,7 @@
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Update URI:        https://github.com/figuren-theater/ft-onboarding
  */
+
 namespace Figuren_Theater\Onboarding;
 
 const DIRECTORY = __DIR__;

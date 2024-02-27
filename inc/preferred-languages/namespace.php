@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Onboarding Preferred_Languages.
  *
- * @package figuren-theater/onboarding/preferred_languages
+ * @package figuren-theater/ft-onboarding
  */
 
 namespace Figuren_Theater\Onboarding\Preferred_Languages;
@@ -17,26 +17,32 @@ use function add_action;
 use function update_option;
 
 const BASENAME   = 'preferred-languages/preferred-languages.php';
-const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
+const PLUGINPATH = '/wpackagist-plugin/' . BASENAME;
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
-function bootstrap() {
+function bootstrap(): void {
 
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 4 );
 }
 
-function load_plugin() {
+/**
+ * Conditionally load the plugin itself and its modifications.
+ *
+ * @return void
+ */
+function load_plugin(): void {
 
-	require_once PLUGINPATH;
+	require_once FT_VENDOR_DIR . PLUGINPATH; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
 
 	// Fires after the value of 'impressum_imprint_options' has been successfully updated.
 	// 
 	// update_option_ is not triggered reliably
 	// so switch to pre_update_option_
 	add_action( 'pre_update_option_' . Impressum\OPTION, __NAMESPACE__ . '\\set_pref_lang_from_impressum', 100, 2 );
-
 }
 
 
@@ -56,23 +62,24 @@ function load_plugin() {
  * @param string $option    Option name.
  */
 // function set_pref_lang_from_impressum( $old_o, $o ) {
-function set_pref_lang_from_impressum(  $o, $old_o ) : array {
+function set_pref_lang_from_impressum( $o, $old_o ): array {
 
 	// do nothing,
 	// if nothing (on the address) has changed
 	// $o['country'] could be unset by Figuren_Theater\Onboarding\Sites\Installation\set_imprint_page()
 	// so check it
-	if ( isset($o['country']) && 
-		 // can be bool, if non existent yet
-		 isset($old_o['country']) && 
-		 $old_o['country'] === $o['country'] &&
-		 $old_o['address'] === $o['address']
-	)
+	if ( isset( $o['country'] ) && 
+		// can be bool, if non existent yet
+		isset( $old_o['country'] ) && 
+		$old_o['country'] === $o['country'] &&
+		$old_o['address'] === $o['address']
+	) {
 		return $o;
+	}
 
 	// change order of default translations, 
 	// based on sites' country
-	switch ($o['country']) {
+	switch ( $o['country'] ) {
 
 		case 'che':
 			$_informal_defaults = [
@@ -81,7 +88,7 @@ function set_pref_lang_from_impressum(  $o, $old_o ) : array {
 				'de_DE',
 				'de_DE_formal',
 			];
-			$_formal_defaults = [
+			$_formal_defaults   = [
 				'de_CH',
 				'de_DE_formal',
 				'de_CH_informal', // fallback, better than default en_US
@@ -96,7 +103,7 @@ function set_pref_lang_from_impressum(  $o, $old_o ) : array {
 				'de_DE',
 				'de_DE_formal',
 			];
-			$_formal_defaults = [
+			$_formal_defaults   = [
 				'de_DE_formal',
 				'de_CH',
 				'de_AT', // fallback, better than default en_US
@@ -130,12 +137,9 @@ function set_pref_lang_from_impressum(  $o, $old_o ) : array {
 	// switch formal and informal translations, based on choosen feature
 	$_defaults = ( $use_formal ) ? $_formal_defaults : $_informal_defaults;
 
-	//
-	update_option( 'preferred_languages', join( ',', $_defaults ), 'yes' );
+		update_option( 'preferred_languages', join( ',', $_defaults ), 'yes' );
 
-	//
-	update_option( 'WPLANG', $_defaults[0], 'yes' );
+		update_option( 'WPLANG', $_defaults[0], 'yes' );
 
-	// 
-	return $o;
+		return $o;
 }

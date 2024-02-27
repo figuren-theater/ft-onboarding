@@ -10,9 +10,11 @@
 
 
 // Exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-if( ! function_exists( 'wp_dropdown_posts' ) ) {
+if ( ! function_exists( 'wp_dropdown_posts' ) ) {
 
 	/**
 	 * Create dropdown HTML content of posts
@@ -22,6 +24,7 @@ if( ! function_exists( 'wp_dropdown_posts' ) ) {
 	 * need to be used; all published posts will be displayed in that case.
 	 *
 	 * Supports all WP_Query arguments
+	 *
 	 * @see https://codex.wordpress.org/Class_Reference/WP_Query
 	 *
 	 * The available arguments are as follows:
@@ -73,22 +76,22 @@ if( ! function_exists( 'wp_dropdown_posts' ) ) {
 	function wp_dropdown_posts( $args = '' ) {
 
 		$defaults = array(
-			'selected'              => FALSE,
-			'pagination'            => FALSE,
+			'selected'              => false,
+			'pagination'            => false,
 			'posts_per_page'        => - 1,
 			'post_status'           => 'publish',
-			'cache_results'         => TRUE,
-			'cache_post_meta_cache' => TRUE,
+			'cache_results'         => true,
+			'cache_post_meta_cache' => true,
 			'echo'                  => 1,
 			'select_name'           => 'post_id',
 			'id'                    => '',
 			'class'                 => '',
 			'show'                  => 'post_title',
-			'show_callback'         => NULL,
-			'show_option_all'       => NULL,
-			'show_option_none'      => NULL,
+			'show_callback'         => null,
+			'show_option_all'       => null,
+			'show_option_none'      => null,
 			'option_none_value'     => '',
-			'multi'                 => FALSE,
+			'multi'                 => false,
 			'value_field'           => 'ID',
 			'order'                 => 'ASC',
 			'orderby'               => 'post_title',
@@ -101,11 +104,11 @@ if( ! function_exists( 'wp_dropdown_posts' ) ) {
 
 		$show = $r['show'];
 
-		if( ! empty($posts) ) {
+		if ( ! empty( $posts ) ) {
 
 			$name = esc_attr( $r['select_name'] );
 
-			if( $r['multi'] && ! $r['id'] ) {
+			if ( $r['multi'] && ! $r['id'] ) {
 				$id = '';
 			} else {
 				$id = $r['id'] ? " id='" . esc_attr( $r['id'] ) . "'" : " id='$name'";
@@ -113,28 +116,30 @@ if( ! function_exists( 'wp_dropdown_posts' ) ) {
 
 			$output = "<select name='{$name}'{$id} class='" . esc_attr( $r['class'] ) . "'>\n";
 
-			if( $r['show_option_all'] ) {
+			if ( $r['show_option_all'] ) {
 				$output .= "\t<option value='0'>{$r['show_option_all']}</option>\n";
 			}
 
-			if( $r['show_option_none'] ) {
-				$_selected = selected( $r['show_option_none'], $r['selected'], FALSE );
-				$output .= "\t<option value='" . esc_attr( $r['option_none_value'] ) . "'$_selected>{$r['show_option_none']}</option>\n";
+			if ( $r['show_option_none'] ) {
+				$_selected = selected( $r['show_option_none'], $r['selected'], false );
+				$output   .= "\t<option value='" . esc_attr( $r['option_none_value'] ) . "'$_selected>{$r['show_option_none']}</option>\n";
 			}
 
-			foreach( (array) $posts as $post ) {
+			foreach ( (array) $posts as $post ) {
 
-				$value   = ! isset($r['value_field']) || ! isset($post->{$r['value_field']}) ? $post->ID : $post->{$r['value_field']};
-				$_selected = selected( $value, $r['selected'], FALSE );
+				$value     = ! isset( $r['value_field'] ) || ! isset( $post->{$r['value_field']} ) ? $post->ID : $post->{$r['value_field']};
+				$_selected = selected( $value, $r['selected'], false );
 
-				$display = ! empty($post->$show) ? $post->$show : sprintf( __( '#%d (no title)' ), $post->ID );
+				$display = ! empty( $post->$show ) ? $post->$show : sprintf( __( '#%d (no title)' ), $post->ID );
 
-				if( $r['show_callback'] ) $display = call_user_func( $r['show_callback'], $display, $post->ID );
+				if ( $r['show_callback'] ) {
+					$display = call_user_func( $r['show_callback'], $display, $post->ID );
+				}
 
 				$output .= "\t<option value='{$value}'{$_selected}>" . esc_html( $display ) . "</option>\n";
 			}
 
-			$output .= "</select>";
+			$output .= '</select>';
 		}
 
 		/**
@@ -148,7 +153,7 @@ if( ! function_exists( 'wp_dropdown_posts' ) ) {
 		 */
 		$html = apply_filters( 'wp_dropdown_posts', $output, $r, $posts );
 
-		if( $r['echo'] ) {
+		if ( $r['echo'] ) {
 			echo $html;
 		}
 

@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Onboarding Impressum.
  *
- * @package figuren-theater/onboarding/impressum
+ * @package figuren-theater/ft-onboarding
  */
 
 namespace Figuren_Theater\Onboarding\Impressum;
@@ -17,13 +17,15 @@ use function add_filter;
 use function is_admin;
 
 const BASENAME   = 'impressum/impressum.php';
-const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
+const PLUGINPATH = '/wpackagist-plugin/' . BASENAME;
 const OPTION     = 'impressum_imprint_options';
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
-function bootstrap() {
+function bootstrap(): void {
 
 	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
 	
@@ -33,12 +35,13 @@ function bootstrap() {
 
 function load_plugin() {
 
-	require_once PLUGINPATH;
+	require_once FT_VENDOR_DIR . PLUGINPATH; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
 
 	add_filter( 'pre_update_option_' . OPTION, __NAMESPACE__ . '\\pre_update_ft_geo_option_from_imprint', 10, 3 );
 
-	if ( ! is_admin() )
+	if ( ! is_admin() ) {
 		return;
+	}
 
 	add_action( 'impressum_country_after_sort', __NAMESPACE__ . '\\impressum_country_after_sort' );
 	add_action( 'impressum_legal_entity_after_sort', __NAMESPACE__ . '\\impressum_legal_entity_after_sort' );
@@ -67,25 +70,26 @@ function filter_options() {
 // set Impressum-location, ft_geo-catgeories and WP_LANG
 // in one go, by just .... updating an option
 // 
-function pre_update_ft_geo_option_from_imprint( mixed $new_value, mixed $old_value, string $option_name ) : mixed {
+function pre_update_ft_geo_option_from_imprint( mixed $new_value, mixed $old_value, string $option_name ): mixed {
 
 	// do nothing,
 	// if nothing (on the address) has changed
 	// $new_value['country'] could be unset by Figuren_Theater\Onboarding\Sites\Installation\set_imprint_page()
 	// so check it
-	if ( isset($new_value['country']) && 
-		 // can be bool, if non existent yet
-		 isset($old_value['country']) && 
-		 $old_value['country'] === $new_value['country']
+	if ( isset( $new_value['country'] ) && 
+		// can be bool, if non existent yet
+		isset( $old_value['country'] ) && 
+		$old_value['country'] === $new_value['country']
 		&&
 		$old_value['address'] === $new_value['address']
-	)
+	) {
 		return $new_value;
+	}
 
 	// otherwise
 	// start the geo-engines :)
-	$ft_geo_options_bridge = new Geo\ft_geo_options_bridge;
-	$ft_geo = $ft_geo_options_bridge->update_option_ft_geo( $old_value, $new_value, $option_name );
+	$ft_geo_options_bridge = new Geo\ft_geo_options_bridge();
+	$ft_geo                = $ft_geo_options_bridge->update_option_ft_geo( $old_value, $new_value, $option_name );
 
 	// set adress to verified version
 	if ( isset( $ft_geo['address'] ) && ! empty( $ft_geo['address'] ) ) {
@@ -95,9 +99,9 @@ function pre_update_ft_geo_option_from_imprint( mixed $new_value, mixed $old_val
 		$new_value['address'] = $old_value['address'];
 	} 
 	// set country to verified version
-	if ( isset( $ft_geo['geojson']['properties']['address']['country'] )) {
+	if ( isset( $ft_geo['geojson']['properties']['address']['country'] ) ) {
 		// crazy country codes by 'Impressum' plugin
-		$_country_helper = [
+		$_country_helper      = [
 			'de' => 'deu',
 			'at' => 'aut',
 			'ch' => 'che',
@@ -110,16 +114,15 @@ function pre_update_ft_geo_option_from_imprint( mixed $new_value, mixed $old_val
 
 	// go on and save
 	return $new_value;
-
 }
 
 
 /**
  * Filter the countries after localized alphabetical sorting.
  * 
- * @param    array      $countries The current countries
+ * @param    array $countries The current countries
  */
-function impressum_country_after_sort( array $countries ) : array {
+function impressum_country_after_sort( array $countries ): array {
 	return [
 		'deu' => $countries['deu'],
 		'aut' => $countries['aut'],
@@ -131,9 +134,9 @@ function impressum_country_after_sort( array $countries ) : array {
 /**
  * Filter the legal entities after localized alphabetical sorting.
  * 
- * @param    array     $countries The current countries
+ * @param    array $countries The current countries
  */
-function impressum_legal_entity_after_sort( array $legal_entities ) : array {
+function impressum_legal_entity_after_sort( array $legal_entities ): array {
 	return [
 		'self'       => $legal_entities['self'],
 		'individual' => $legal_entities['individual'],
@@ -141,7 +144,7 @@ function impressum_legal_entity_after_sort( array $legal_entities ) : array {
 }
 
 
-function cleanup_admin_ui() : void {
+function cleanup_admin_ui(): void {
 	echo '<style>
 		.settings_page_impressum .nav-tab-wrapper,
 		.settings_page_impressum #legal_entity + .notice-warning {
