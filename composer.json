@@ -41,10 +41,6 @@
         ]
 	},
 	"repositories": [
-		{
-            "type": "git",
-            "url": "https://github.com/figuren-theater/ft-options"
-        },
         {
             "type": "git",
             "url": "https://github.com/figuren-theater/ft-core-block-domaincheck"
@@ -86,7 +82,13 @@
 		"allow-plugins": {
 			"composer/installers": true,
 			"johnpbloch/wordpress-core-installer": true,
-			"koodimonni/composer-dropin-installer": true
+			"koodimonni/composer-dropin-installer": true,
+			"phpstan/extension-installer": true,
+			"ergebnis/composer-normalize": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
+	},
+	"require-dev": {
+		"figuren-theater/code-quality": "^1.1"
 	}
 }
