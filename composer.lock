@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a0b6d0ee296d524f287d01c377912b8",
+    "content-hash": "95fce607c1c48b73d649b0b53d61ae7b",
     "packages": [
         {
             "name": "composer/installers",
@@ -204,16 +204,16 @@
         },
         {
             "name": "figuren-theater/ft-options",
-            "version": "1.2.3",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/figuren-theater/ft-options.git",
-                "reference": "127e6c8bb62cce778ee7468aa548c8326fe9c29a"
+                "reference": "19baf021113cdfd91facdd9750820ac22f631330"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/figuren-theater/ft-options/zipball/127e6c8bb62cce778ee7468aa548c8326fe9c29a",
-                "reference": "127e6c8bb62cce778ee7468aa548c8326fe9c29a",
+                "url": "https://api.github.com/repos/figuren-theater/ft-options/zipball/19baf021113cdfd91facdd9750820ac22f631330",
+                "reference": "19baf021113cdfd91facdd9750820ac22f631330",
                 "shasum": ""
             },
             "require": {
@@ -221,7 +221,7 @@
                 "php": ">=7.4"
             },
             "require-dev": {
-                "figuren-theater/code-quality": "*"
+                "figuren-theater/code-quality": "^1.1"
             },
             "type": "wordpress-muplugin",
             "autoload": {
@@ -258,7 +258,7 @@
                 "issues": "https://github.com/figuren-theater/ft-options/issues",
                 "source": "https://github.com/figuren-theater/ft-options"
             },
-            "time": "2023-09-11T10:27:33+00:00"
+            "time": "2024-02-24T14:02:32+00:00"
         },
         {
             "name": "figuren-theater/install.php",
@@ -311,20 +311,20 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "6.3.2",
+            "version": "6.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "95f0b339643817935ac043b98d4aa1e1a0d08049"
+                "reference": "b20c2071f4cd609953dbd7ffc97e5201094499f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/95f0b339643817935ac043b98d4aa1e1a0d08049",
-                "reference": "95f0b339643817935ac043b98d4aa1e1a0d08049",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/b20c2071f4cd609953dbd7ffc97e5201094499f0",
+                "reference": "b20c2071f4cd609953dbd7ffc97e5201094499f0",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "6.3.2",
+                "johnpbloch/wordpress-core": "6.4.3",
                 "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
                 "php": ">=7.0.0"
             },
@@ -353,20 +353,20 @@
                 "issues": "https://core.trac.wordpress.org/",
                 "source": "https://core.trac.wordpress.org/browser"
             },
-            "time": "2023-10-12T19:02:29+00:00"
+            "time": "2024-01-30T19:31:18+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "6.3.2",
+            "version": "6.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "0a18695e2ae028ea8485c45053c14525544c1dc7"
+                "reference": "389a4e72f3e14a995f89fa4bc5a69c7cf75ae2a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/0a18695e2ae028ea8485c45053c14525544c1dc7",
-                "reference": "0a18695e2ae028ea8485c45053c14525544c1dc7",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/389a4e72f3e14a995f89fa4bc5a69c7cf75ae2a8",
+                "reference": "389a4e72f3e14a995f89fa4bc5a69c7cf75ae2a8",
                 "shasum": ""
             },
             "require": {
@@ -374,7 +374,7 @@
                 "php": ">=7.0.0"
             },
             "provide": {
-                "wordpress/core-implementation": "6.3.2"
+                "wordpress/core-implementation": "6.4.3"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -401,7 +401,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2023-10-12T19:02:24+00:00"
+            "time": "2024-01-30T19:31:14+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -2468,5 +2468,5 @@
         "php": ">=7.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

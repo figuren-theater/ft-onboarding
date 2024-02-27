@@ -36,7 +36,7 @@
 		"stuttter/wp-user-profiles": "2.6.2",
 		"wpackagist-plugin/impressum": "2.0.3",
 		"wpackagist-plugin/preferred-languages": "2.0.1",
-		"wpackagist-plugin/wp-approve-user": "10"
+		"wpackagist-plugin/wp-approve-user": "11"
 	},
 	"require-dev": {
 		"figuren-theater/code-quality": "^1.1"
