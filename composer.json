@@ -31,7 +31,7 @@
 		"php": ">=7.1",
 		"figuren-theater/ft-core-block-domaincheck": "0.1.2",
 		"figuren-theater/ft-options": "*",
-		"figuren-theater/install.php": "1.1.0",
+		"figuren-theater/install.php": "1.4.0",
 		"stuttter/wp-multi-network": "2.5.2",
 		"stuttter/wp-user-profiles": "2.6.2",
 		"wpackagist-plugin/impressum": "2.0.4",

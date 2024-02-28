@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c862cb3d57a3db4412cd7540100c18a2",
+    "content-hash": "dfea81ed5a99816cc919157f2b059f34",
     "packages": [
         {
             "name": "composer/installers",
@@ -262,15 +262,18 @@
         },
         {
             "name": "figuren-theater/install.php",
-            "version": "1.1.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/figuren-theater/install.php",
-                "reference": "f642a9fee4f03acb2fc89f74f0f1d29a7a40384f"
+                "reference": "b0806079278bc6fa606f7731c32765cdec65233b"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=1.0.1",
                 "php": ">=7.0"
+            },
+            "require-dev": {
+                "figuren-theater/code-quality": "^1.1"
             },
             "type": "wordpress-dropin",
             "license": [
@@ -307,7 +310,7 @@
                 "issues": "https://github.com/figuren-theater/install.php/issues",
                 "source": "https://github.com/figuren-theater/install.php"
             },
-            "time": "2023-02-20T21:42:38+00:00"
+            "time": "2024-02-28T09:49:53+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
