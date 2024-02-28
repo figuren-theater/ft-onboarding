@@ -21,3 +21,18 @@ parameters:
         # Find a nicer way instead of ignoring this Error on every ft-module
         - '#Function Altis\\register_module not found\.#'
         - '#Function Figuren_Theater\\get_config not found\.#'
+
+        # TODO https://github.com/figuren-theater/ft-onboarding/issues/29 Remove hard dependencies onto deprecated__Figuren_Theater__v2
+        - '#Call to static method site\(\) on an unknown class Figuren_Theater\\FT\.#'
+        - '#Call to static method init\(\) on an unknown class Figuren_Theater\\FT_Query\.#'
+        - '#Call to static method id\(\) on an unknown class Figuren_Theater\\Network\\Users\\ft_bot\.#'
+        - '#Constant FT_CORESITES not found\.#'
+        - '#Access to constant NAME on an unknown class Figuren_Theater\\Network\\Admin_UI\\Color_Scheme\.#'
+        - '#Call to method run\(\) on an unknown class Figuren_Theater\\Network\\Sync\\Pull\.#'
+        - '#Instantiated class Figuren_Theater\\Network\\Sync\\Pull not found\.#'
+        - '#Instantiated class Figuren_Theater\\Network\\Post_Types\\Post_Type__ft_site not found\.#'
+        - '#Access to constant NAME on an unknown class Figuren_Theater\\Coresites\\Post_Types\\Post_Type__ft_level\.#'
+        - '#Call to static method post_id_exists\(\) on an unknown class Figuren_Theater\\inc\\helper\.#'
+        - '#Instantiated class Figuren_Theater\\inc\\Geo\\ft_geo_options_bridge not found\.#'
+        - '#Call to method update_option_ft_geo\(\) on an unknown class Figuren_Theater\\inc\\Geo\\ft_geo_options_bridge\.#'
+        - '#Constant Figuren_Theater\\FeaturesRepo\\TEMP_USER_META not found\.#'

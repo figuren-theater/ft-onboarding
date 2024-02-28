@@ -15,6 +15,7 @@ use Figuren_Theater\Network\Sync;
 use Figuren_Theater\Network\Users;
 use FT_CORESITES;
 use WP_Site;
+use WP_User;
 use function add_action;
 use function apply_filters;
 use function check_admin_referer;
@@ -124,7 +125,7 @@ function create_new__ft_site( WP_Site $new_site, array $args ): void {
 	// Defined at wp-admin/network/site-new.php.
 	check_admin_referer( 'add-blog', '_wpnonce_add-blog' );
 
-	if ( isset( $_POST['ft_level'] ) && 0 < intval( $_POST['ft_level'] ) ) {
+	if ( isset( $_POST['ft_level'] ) && ( \is_string( $_POST['ft_level'] ) || \is_int( $_POST['ft_level'] ) ) && 0 < intval( $_POST['ft_level'] ) ) {
 		$args['ft_level'] = (int) $_POST['ft_level'];
 	}
 
@@ -223,10 +224,13 @@ function set_imprint_page( WP_Site $new_site, array $args ): void {
 		'impressum_imprint_options',
 		false
 	);
-	$remote_imprint_page_id           = ( isset( $remote_impressum_imprint_options['page'] ) ) ? (int) $remote_impressum_imprint_options['page'] : false;
+	$remote_imprint_page_id           = false;
+	if ( \is_array( $remote_impressum_imprint_options ) && isset( $remote_impressum_imprint_options['page'] ) && ( \is_string( $remote_impressum_imprint_options['page'] ) || \is_int( $remote_impressum_imprint_options['page'] ) ) ) {
+		$remote_imprint_page_id = (int) $remote_impressum_imprint_options['page'];
+	}
 
 	// If we have nothing from remote, JUMP OUT.
-	if ( ! $remote_imprint_page_id ) {
+	if ( false === $remote_imprint_page_id ) {
 		return;
 	}
 
@@ -239,16 +243,24 @@ function set_imprint_page( WP_Site $new_site, array $args ): void {
 	// Run pulling.
 	$imprint_page_id = $distributor->run();
 
-	// Return on failure or set our option if everything was fine.
+	// Return on failure.
 	if ( empty( $imprint_page_id ) || ! inc\helper::post_id_exists( (int) $imprint_page_id[0] ) ) {
 		return;
 	}
 
 	// Prepare some data, which was collected during registration.
-	$person = get_userdata( $args['user_id'] );
+	$person = get_userdata( (int) $args['user_id'] );
+
+	if ( ! $person instanceof WP_User ) {
+		return;
+	}
 
 	// Get temporary data, collected during registration.
 	$user_registration_data = $person->get( FeaturesRepo\TEMP_USER_META );
+
+	if ( ! \is_array( $user_registration_data ) || ! isset( $user_registration_data['adr'] ) || empty( $user_registration_data['adr'] ) ) {
+		return;
+	}
 
 	$impressum_imprint_options = [
 		'page'                => (string) $imprint_page_id[0],
@@ -284,20 +296,20 @@ function set_privacy_page(): void {
 	// this is the one to pull.
 	$ft_coresites_ids      = array_flip( FT_CORESITES );
 	$remote_site_id        = (int) $ft_coresites_ids['mein']; 
-	$remote_policy_page_id = (int) get_blog_option( 
+	$remote_policy_page_id = get_blog_option( 
 		$remote_site_id,
 		'wp_page_for_privacy_policy',
 		false
 	);
 
 	// If we have nothing from remote, JUMP OUT.
-	if ( ! $remote_policy_page_id ) {
+	if ( ! $remote_policy_page_id || ! ( \is_string( $remote_policy_page_id ) || \is_int( $remote_policy_page_id ) ) ) {
 		return;
 	}
 
 	// Establish a connection and define pulling.
-	$distributor = new Sync\Pull( 
-		[ $remote_policy_page_id ],
+	$distributor = new Sync\Pull(
+		[ \intval( $remote_policy_page_id ) ],
 		$remote_site_id,
 		'page'
 	);
