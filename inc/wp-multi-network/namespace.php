@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Onboarding WP_Multi_Network.
  *
- * @package figuren-theater/onboarding/wp_multi_network
+ * @package figuren-theater/ft-onboarding
  */
 
 namespace Figuren_Theater\Onboarding\WP_Multi_Network;
@@ -12,17 +12,24 @@ use FT_VENDOR_DIR;
 use function add_action;
 
 const BASENAME   = 'wp-multi-network/wpmn-loader.php';
-const PLUGINPATH = FT_VENDOR_DIR . '/stuttter/' . BASENAME;
+const PLUGINPATH = '/stuttter/' . BASENAME;
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
-function bootstrap() {
+function bootstrap(): void {
 
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugin', 9 );
 }
 
-function load_plugin() {
+/**
+ * Conditionally load the plugin itself and its modifications.
+ *
+ * @return void
+ */
+function load_plugin(): void {
 
-	require_once PLUGINPATH;
+	require_once FT_VENDOR_DIR . PLUGINPATH; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
 }

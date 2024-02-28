@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Onboarding Sites.
  *
- * @package figuren-theater/onboarding/sites
+ * @package figuren-theater/ft-onboarding
  */
 
 namespace Figuren_Theater\Onboarding\Sites;
@@ -11,17 +11,22 @@ use function add_action;
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
-function bootstrap() {
+function bootstrap(): void {
 
 	add_action( 'init', __NAMESPACE__ . '\\load', 9 );
 }
 
 
-function load() : void {
+/**
+ * Load modifications to Registration- and Installation-workflow for new sites.
+ *
+ * @return void
+ */
+function load(): void {
 
-	// 
 	Registration\bootstrap();
 	Installation\bootstrap();
-
 }
