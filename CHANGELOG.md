@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/figuren-theater/ft-onboarding/compare/1.5.0...HEAD)
+## [Unreleased](https://github.com/figuren-theater/ft-onboarding/compare/1.6.0...HEAD)
+
+## [1.6.0](https://github.com/figuren-theater/ft-onboarding/compare/1.5.0...1.6.0) - 2024-10-09
+
+### Dependency Updates & Maintenance
+
+- Bump wpackagist-plugin/impressum from 2.0.4 to 2.0.5 ([#34](https://github.com/figuren-theater/ft-onboarding/pull/34))
+- Bump wpackagist-plugin/preferred-languages from 2.2.2 to 2.3.0 ([#33](https://github.com/figuren-theater/ft-onboarding/pull/33))
 
 ## [1.5.0](https://github.com/figuren-theater/ft-onboarding/compare/1.4.0...1.5.0) - 2024-02-28
 
