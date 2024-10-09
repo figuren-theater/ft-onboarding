@@ -35,7 +35,7 @@
 		"stuttter/wp-multi-network": "2.5.2",
 		"stuttter/wp-user-profiles": "2.6.2",
 		"wpackagist-plugin/impressum": "2.0.4",
-		"wpackagist-plugin/preferred-languages": "2.2.2",
+		"wpackagist-plugin/preferred-languages": "2.3.0",
 		"wpackagist-plugin/wp-approve-user": "11"
 	},
 	"require-dev": {
