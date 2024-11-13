@@ -85,13 +85,13 @@ function filter_options(): void {
  *
  * @see https://developer.wordpress.org/reference/hooks/pre_update_option_option/
  *
- * @param  array<string, string> $new_value    The new, unserialized option value.
- * @param  array<string, string> $old_value    The old option value.
- * @param  string                $option_name  Name of the option in the DB.
+ * @param  array<string, string>      $new_value    The new, unserialized option value.
+ * @param  array<string, string>|bool $old_value    The old option value.
+ * @param  string                     $option_name  Name of the option in the DB.
  *
  * @return array<string, string>               The new, updated option value ready for being saved to the database.
  */
-function pre_update_ft_geo_option_from_imprint( array $new_value, array $old_value, string $option_name ): array {
+function pre_update_ft_geo_option_from_imprint( array $new_value, array|bool $old_value, string $option_name ): array {
 
 	// Do nothing, if nothing (on the address) has changed.
 	// Do check '$new_value['country']', which could be unset by Figuren_Theater\Onboarding\Sites\Installation\set_imprint_page().

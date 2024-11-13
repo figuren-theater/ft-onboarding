@@ -52,12 +52,12 @@ function load_plugin(): void {
  *
  * @see https://developer.wordpress.org/reference/hooks/pre_update_option_option/
  *
- * @param  array<string, string> $new_value The new option value.
- * @param  array<string, string> $old_value The old option value.
+ * @param  array<string, string>      $new_value The new option value.
+ * @param  array<string, string>|bool $old_value The old option value.
  * 
  * @return array<string, string>
  */
-function set_pref_lang_from_impressum( array $new_value, array $old_value ): array {
+function set_pref_lang_from_impressum( array $new_value, array|bool $old_value ): array {
 
 	// Do nothing, if nothing (on the address) has changed.
 	// $o['country'] could be unset by Figuren_Theater\Onboarding\Sites\Installation\set_imprint_page(),
