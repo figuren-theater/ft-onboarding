@@ -15,7 +15,7 @@ parameters:
             # when package is tested
             # and not running within ft-platform
             - wp-content/
-            - tests/
+            # - tests/
             - inc/sites/wp_dropdown_posts/
     ignoreErrors:
         # Find a nicer way instead of ignoring this Error on every ft-module
