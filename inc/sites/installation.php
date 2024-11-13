@@ -200,7 +200,7 @@ function set_home_page( WP_Site $new_site, array $args ) {
 	$home_page_id = wp_insert_post( $new_home_page, true );
 
 	if ( ! is_wp_error( $home_page_id ) ) {
-		update_option( 'page_on_front', (int) $home_page_id, 'yes' );
+		update_option( 'page_on_front', (int) $home_page_id, true );
 	}
 }
 
@@ -281,7 +281,7 @@ function set_imprint_page( WP_Site $new_site, array $args ): void {
 	// Maybe possible, when 'impressum_imprint_options' is pre-populated during install,
 	// but was never really used within this blog.
 	unset( $impressum_imprint_options['country'] );
-	update_option( 'impressum_imprint_options', $impressum_imprint_options, 'no' );
+	update_option( 'impressum_imprint_options', $impressum_imprint_options, false );
 }
 
 
@@ -319,6 +319,6 @@ function set_privacy_page(): void {
 
 	// Save our option if everything was fine.
 	if ( ! empty( $policy_page_id ) ) {
-		update_option( 'wp_page_for_privacy_policy', (int) $policy_page_id[0], 'no' );
+		update_option( 'wp_page_for_privacy_policy', (int) $policy_page_id[0], false );
 	}
 }
