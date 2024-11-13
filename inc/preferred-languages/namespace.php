@@ -131,9 +131,9 @@ function set_pref_lang_from_impressum( array $new_value, array|bool $old_value )
 	// Switch formal and informal translations, based on choosen feature.
 	$_defaults = ( $use_formal ) ? $_formal_defaults : $_informal_defaults;
 
-	update_option( 'preferred_languages', join( ',', $_defaults ), 'yes' );
+	update_option( 'preferred_languages', join( ',', $_defaults ), true );
 
-	update_option( 'WPLANG', $_defaults[0], 'yes' );
+	update_option( 'WPLANG', $_defaults[0], true );
 
 	return $new_value;
 }
