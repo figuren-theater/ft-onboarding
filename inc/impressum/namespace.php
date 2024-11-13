@@ -93,6 +93,10 @@ function filter_options(): void {
  */
 function pre_update_ft_geo_option_from_imprint( array $new_value, array|bool $old_value, string $option_name ): array {
 
+	if ( false === $old_value ) {
+		$old_value = array();
+	}
+
 	// Do nothing, if nothing (on the address) has changed.
 	// Do check '$new_value['country']', which could be unset by Figuren_Theater\Onboarding\Sites\Installation\set_imprint_page().
 	if ( isset( $new_value['country'] ) && 
@@ -112,7 +116,7 @@ function pre_update_ft_geo_option_from_imprint( array $new_value, array|bool $ol
 	// Set adress to verified version.
 	if ( isset( $ft_geo['address'] ) && ! empty( $ft_geo['address'] ) ) {
 		$new_value['address'] = $ft_geo['address'];
-	} else {
+	} elseif ( isset( $old_value['address'] ) ) {
 		// Or reset.
 		$new_value['address'] = $old_value['address'];
 	} 
@@ -125,7 +129,7 @@ function pre_update_ft_geo_option_from_imprint( array $new_value, array|bool $ol
 			'ch' => 'che',
 		];
 		$new_value['country'] = $_country_helper[ $ft_geo['geojson']['properties']['address']['country_code'] ];
-	} else {
+	} elseif ( isset( $old_value['country'] ) ) {
 		// Or reset.
 		$new_value['country'] = $old_value['country'];
 	}
