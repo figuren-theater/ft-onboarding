@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/figuren-theater/ft-onboarding/compare/1.6.0...HEAD)
+## [Unreleased](https://github.com/figuren-theater/ft-onboarding/compare/1.6.1...HEAD)
+
+## [1.6.1](https://github.com/figuren-theater/ft-onboarding/compare/1.6.0...1.6.1) - 2024-11-13
+
+### :bug: Bugfixes
+
+- Add BOOL to fn signature, to prepare for non-existent options ([#36](https://github.com/figuren-theater/ft-onboarding/pull/36))
+
+### Dependency Updates & Maintenance
+
+- Bump figuren-theater/code-quality from 1.1.1 to 1.2.1 ([#35](https://github.com/figuren-theater/ft-onboarding/pull/35))
 
 ## [1.6.0](https://github.com/figuren-theater/ft-onboarding/compare/1.5.0...1.6.0) - 2024-10-09
 
