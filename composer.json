@@ -39,7 +39,7 @@
 		"wpackagist-plugin/wp-approve-user": "11"
 	},
 	"require-dev": {
-		"figuren-theater/code-quality": "^1.1"
+		"figuren-theater/code-quality": "^2.0"
 	},
 	"repositories": [
 		{
