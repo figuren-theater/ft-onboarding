@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/figuren-theater/ft-onboarding/compare/1.6.1...HEAD)
+## [Unreleased](https://github.com/figuren-theater/ft-onboarding/compare/1.6.2...HEAD)
+
+## [1.6.2](https://github.com/figuren-theater/ft-onboarding/compare/1.6.1...1.6.2) - 2025-12-11
+
+### Dependency Updates & Maintenance
+
+- Bump figuren-theater/code-quality from 1.2.1 to 2.0.0 ([#37](https://github.com/figuren-theater/ft-onboarding/pull/37))
 
 ## [1.6.1](https://github.com/figuren-theater/ft-onboarding/compare/1.6.0...1.6.1) - 2024-11-13
 
