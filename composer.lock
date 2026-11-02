@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d597ee807bd30e91502f4adc5468d86f",
+    "content-hash": "e492201142a469d6ae7a789aa8bfe552",
     "packages": [
         {
             "name": "composer/installers",
@@ -672,15 +672,15 @@
         },
         {
             "name": "wpackagist-plugin/preferred-languages",
-            "version": "2.3.0",
+            "version": "2.4.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/preferred-languages/",
-                "reference": "tags/2.3.0"
+                "reference": "tags/2.4.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/preferred-languages.2.3.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/preferred-languages.2.4.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -2572,12 +2572,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
