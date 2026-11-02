@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d597ee807bd30e91502f4adc5468d86f",
+    "content-hash": "0f33aaad71d8dd4b100a228d2a8c2a3b",
     "packages": [
         {
             "name": "composer/installers",
@@ -654,15 +654,15 @@
         },
         {
             "name": "wpackagist-plugin/impressum",
-            "version": "2.0.5",
+            "version": "3.0.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/impressum/",
-                "reference": "tags/2.0.5"
+                "reference": "tags/3.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/impressum.2.0.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/impressum.3.0.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -2572,12 +2572,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
