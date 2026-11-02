@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d597ee807bd30e91502f4adc5468d86f",
+    "content-hash": "921787563f1124db9bc1669e9e4673fb",
     "packages": [
         {
             "name": "composer/installers",
@@ -556,28 +556,31 @@
         },
         {
             "name": "stuttter/wp-multi-network",
-            "version": "2.5.2",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stuttter/wp-multi-network.git",
-                "reference": "f48f3ace142632cac6cb0caed8ac6f680381d6ca"
+                "reference": "f846b1cd7b0c9691154861275c9f2460ee4c97fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stuttter/wp-multi-network/zipball/f48f3ace142632cac6cb0caed8ac6f680381d6ca",
-                "reference": "f48f3ace142632cac6cb0caed8ac6f680381d6ca",
+                "url": "https://api.github.com/repos/stuttter/wp-multi-network/zipball/f846b1cd7b0c9691154861275c9f2460ee4c97fa",
+                "reference": "f846b1cd7b0c9691154861275c9f2460ee4c97fa",
                 "shasum": ""
             },
             "require": {
-                "composer/installers": "^1.0",
-                "php": ">=5.2"
+                "composer/installers": "^1.0 || ^2.0",
+                "php": ">=7.4"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-                "phpcompatibility/phpcompatibility-wp": "^2.1",
-                "phpunit/phpunit": ">4.8.20 <6.0",
-                "squizlabs/php_codesniffer": "3.*",
-                "wp-coding-standards/wpcs": "^2.2"
+                "automattic/vipwpcs": "^3.0",
+                "php-stubs/wp-cli-stubs": "^2.12.0",
+                "phpcompatibility/phpcompatibility-wp": "^2.1.8",
+                "phpstan/phpstan": "^2.1.33",
+                "staabm/annotate-pull-request-from-checkstyle": "^1.8.6",
+                "szepeviktor/phpstan-wordpress": "^2.0.3",
+                "wp-coding-standards/wpcs": "^3.3.0",
+                "yoast/wp-test-utils": "^1.2.0"
             },
             "type": "wordpress-plugin",
             "notification-url": "https://packagist.org/downloads/",
@@ -597,13 +600,7 @@
                 "issues": "https://github.com/stuttter/wp-multi-network/issues",
                 "source": "https://github.com/stuttter/wp-multi-network"
             },
-            "funding": [
-                {
-                    "url": "https://buy.stripe.com/7sI3cd2tK1Cy2lydQR",
-                    "type": "custom"
-                }
-            ],
-            "time": "2022-09-21T09:56:05+00:00"
+            "time": "2026-10-09T04:47:53+00:00"
         },
         {
             "name": "stuttter/wp-user-profiles",
@@ -2572,12 +2569,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
