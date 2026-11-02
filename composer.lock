@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d597ee807bd30e91502f4adc5468d86f",
+    "content-hash": "d57551baa5fbcef7df339a07d7ac34cd",
     "packages": [
         {
             "name": "composer/installers",
@@ -690,15 +690,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-approve-user",
-            "version": "11",
+            "version": "14",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-approve-user/",
-                "reference": "tags/11"
+                "reference": "tags/14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-approve-user.11.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-approve-user.14.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -2572,12 +2572,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
